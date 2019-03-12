@@ -36,30 +36,48 @@ const gyo = (_sel)=>{
     //method
     const returnComputedStyle = (node ,property)=>{
         return window.getComputedStyle(node)[property];
-    }
+    };
     const initStyle = (compoName, node)=>{
         const iStyle = Object.entries(styleObj[compoName].init);
         for(let v of iStyle){
             node.style[v[0]] = v[1];
         }
-    }
-    const hoverStyle = (compoName, node, effect)=>{
-        if(!styleObj[compoName].hover_effect[effect]) return;
+    };
+    const over = (compoName, node, effect, mouseOver)=>{
+        if(!styleObj[compoName].hover_effect[effect] || styleObj[compoName].hover_effect[effect]==='none') return;
         node.addEventListener('mouseover',(e)=>{
             e.stopPropagation();
             const hoverStyle = Object.entries(styleObj[compoName].hover_effect[effect]);
             for(let v of hoverStyle){
                 node.style[v[0]] = v[1];
             }
+            if(mouseOver) mouseOver();
         });
+    };
+    const out = (compoName, node, effect, mouseOut)=>{
+        if(!styleObj[compoName].hover_effect[effect] || styleObj[compoName].hover_effect[effect]==='none') return;
         node.addEventListener('mouseout',(e)=>{
             e.stopPropagation();
             const hoverStyle = Object.entries(styleObj[compoName].hover_effect[`${effect}_out`]);
             for(let v of hoverStyle){
                 node.style[v[0]] = v[1];
             }
+            if(mouseOut) mouseOut();
         });
-    }
+    };
+    const down = (compoName, node, mouseDown)=>{
+        node.addEventListener('mousedown', (e)=>{
+            e.stopPropagation();
+            if(mouseDown) mouseDown();
+        });
+    };
+    const up = (compoName, node, mouseUp)=>{
+        console.log('kk')
+        node.addEventListener('mouseup', (e)=>{
+            e.stopPropagation();
+            if(mouseUp) mouseUp();
+        });
+    };
 
     const Constructor = function(sel){
         try{
@@ -78,15 +96,18 @@ const gyo = (_sel)=>{
             console.error(e);
             return;
         }
-    }
+    };
     Constructor.prototype = {
         button : (obj)=>{
             for(let node of nodeArr){
                 initStyle('button', node);
-                hoverStyle('button', node, obj.hover_effect);
+                over('button', node, obj.hover_effect, obj.mouse_over);
+                out('button', node, obj.hover_effect, obj.mouse_out)
+                down('button', node, obj.mouse_down);
+                up('button', node, obj.mouse_up);
             }
         }
-    }
+    };
 
     return new Constructor(_sel);
 };
