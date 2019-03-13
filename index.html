@@ -28,11 +28,15 @@
     let onMouseUp = ()=>{
         console.log('onMouseUp');
     }
+    let onMouseOut = ()=>{
+        console.log('onMouseOUt');
+    }
     gyo('.button-scale').button({
         type : 'stateless',
         hover_effect : 'scale',
         mouse_down : onMouseDown,
         mouse_over : onMouseOver,
+        mouse_out : onMouseOut,
         mouse_up : onMouseUp
     });
     gyo(".button-invert").button({
