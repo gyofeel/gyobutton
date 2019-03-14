@@ -2,7 +2,8 @@
     'use strict'
     //private
     //variable
-    let selector, nodeArr;
+    let selector, nodeArr, obj;
+    let stateArr = [];
     //object
     const styleObj = {
         button: {
@@ -39,40 +40,54 @@
     };
     const initStyle = (compoName, node)=>{
         const iStyle = Object.entries(styleObj[compoName].init);
+        console.log(node)
         for(let v of iStyle){
             node.style[v[0]] = v[1];
         }
     };
-    const over = (compoName, node, effect, mouseOver)=>{
+    const over = (compoName, node)=>{
+        const mouseOver = obj.mouse_over;
+        const effect = obj.hover_effect;
+
         if(!styleObj[compoName].hover_effect[effect] || styleObj[compoName].hover_effect[effect]==='none') return;
         node.addEventListener('mouseover',(e)=>{
             e.stopPropagation();
-            const hoverStyle = Object.entries(styleObj[compoName].hover_effect[effect]);
-            for(let v of hoverStyle){
-                node.style[v[0]] = v[1];
+            if(obj.type !=='state')
+            {
+                const hoverStyle = Object.entries(styleObj[compoName].hover_effect[effect]);
+                for(let v of hoverStyle){
+                    node.style[v[0]] = v[1];
+                }
             }
             if(mouseOver) mouseOver();
         });
     };
-    const out = (compoName, node, effect, mouseOut)=>{
+    const out = (compoName, node)=>{
+        const mouseOut = obj.mouse_out;
+        const effect = obj.hover_effect;
+
         if(!styleObj[compoName].hover_effect[effect] || styleObj[compoName].hover_effect[effect]==='none') return;
         node.addEventListener('mouseout',(e)=>{
             e.stopPropagation();
-            const hoverStyle = Object.entries(styleObj[compoName].hover_effect[`${effect}_out`]);
-            for(let v of hoverStyle){
-                node.style[v[0]] = v[1];
+            if(obj.type !=='state')
+            {
+                const hoverStyle = Object.entries(styleObj[compoName].hover_effect[`${effect}_out`]);
+                for(let v of hoverStyle){
+                    node.style[v[0]] = v[1];
+                }
             }
             if(mouseOut) mouseOut();
         });
     };
-    const down = (compoName, node, mouseDown)=>{
+    const down = (compoName, node)=>{
+        const mouseDown = obj.mouse_down;
         node.addEventListener('mousedown', (e)=>{
             e.stopPropagation();
             if(mouseDown) mouseDown();
         });
     };
-    const up = (compoName, node, mouseUp)=>{
-        console.log('kk')
+    const up = (compoName, node)=>{
+        const mouseUp = obj.mouse_up;
         node.addEventListener('mouseup', (e)=>{
             e.stopPropagation();
             if(mouseUp) mouseUp();
@@ -98,18 +113,21 @@
         }
     };
     Gyo.prototype = {
-        button : (obj)=>{
+        button : (_obj)=>{
+            obj = _obj;
+            stateArr = new Array(nodeArr.length).fill(false);
+            console.log(nodeArr.length);
             for(let node of nodeArr){
                 initStyle('button', node);
-                over('button', node, obj.hover_effect, obj.mouse_over);
-                out('button', node, obj.hover_effect, obj.mouse_out)
-                down('button', node, obj.mouse_down);
-                up('button', node, obj.mouse_up);
+                over('button', node);
+                out('button', node)
+                down('button', node);
+                up('button', node);
             }
         }
     };
 
     // return Constructor;
-   window.gyo = (sel)=>new Gyo(sel)
+   window.gyo = (sel)=>new Gyo(sel);
 })();
 

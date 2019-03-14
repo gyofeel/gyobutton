@@ -12,10 +12,14 @@
     <button id="b-1" class="button-scale">BUTTON</button>
     <button id="b-2" class="button-scale">BUTTON</button>
     <button id="b-3" class="button-scale">BUTTON</button>
+    <button id="b-4" class="button-scale">BUTTON</button>
+    <button id="b-5" class="button-scale">BUTTON</button>
+    <button id="b-6" class="button-scale">BUTTON</button>
 
-    <button id="b-1" class="button-invert">BUTTON</button>
-    <button id="b-2" class="button-invert">BUTTON</button>
-    <button id="b-3" class="button-invert">BUTTON</button>
+    <button id="i-1" class="button-invert">BUTTON</button>
+    <button id="i-2" class="button-invert">BUTTON</button>
+    <button id="i-3" class="button-invert">BUTTON</button>
+    <section id="s-1">HELLO</section>
 </body>
 </html>
 <script type="text/javascript">
@@ -29,24 +33,25 @@
         console.log('onMouseUp');
     }
     let onMouseOut = ()=>{
-        console.log('onMouseOUt');
+        console.log('onMouseOut');
     }
-    gyo('.button-scale').button({
+    gyo(".button-invert").button({
         type : 'stateless',
         hover_effect : 'scale',
+        mouse_down : onMouseDown,
+        mouse_over : onMouseOver,
+        mouse_up : onMouseUp
+    });
+    gyo('.button-scale').button({
+        type : 'stateless',
+        hover_effect : 'invert',
         mouse_down : onMouseDown,
         mouse_over : onMouseOver,
         mouse_out : onMouseOut,
         mouse_up : onMouseUp
     });
-    gyo(".button-invert").button({
+    gyo("#s-1").button({
         type : 'stateless',
-        hover_effect : 'invert',
-        mouse_down : onMouseDown,
-        mouse_over : onMouseOver,
-        mouse_up : onMouseUp
-    });
-    gyo("#b-1").button({
-        type : 'state'
+        hover_effect : 'invert'
     });
 </script>
