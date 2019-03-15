@@ -1,9 +1,11 @@
 (function(){
     'use strict'
-    //private
-    //variable
+
+    //GyoButton
+    //Private Memeber
+    //Variable
     let selector, nodeArr;
-    //object
+    //Object
     const styleObj = {
         init : {
             width:'120px',
@@ -15,19 +17,26 @@
             cursor:'pointer',
             transition:'0.5s',
             transform:''
+        },
+        state_effect : {
+            backgroundColor : 'black',
+            color: 'white'
+        },
+        state_effect_out : {
+            backgroundColor : 'white',
+            color: 'black'
         }
     };
-    //method
+    //Method
     const returnComputedStyle = (node ,property)=>{
         return window.getComputedStyle(node)[property];
     };
     const initStyle = (node)=>{
-        const iStyle = Object.entries(styleObj.init);
-        for(let v of iStyle){
+        const initStyle = Object.entries(styleObj.init);
+        for(let v of initStyle){
             node.style[v[0]] = v[1];
         }
     };
-
     const initEvent = (node, event, callback)=>{
         node.addEventListener(event, (e)=>{
             e.stopPropagation();
@@ -35,7 +44,8 @@
         });
     }
 
-    const Gyo = function(sel){
+    //Constructor
+    const GyoButton = function(sel){
         try {
             if(sel && typeof sel === 'string'){
                 selector = sel;
@@ -54,9 +64,9 @@
         }
     };
 
-    Gyo.prototype = {
-        button : (initProperty)=>{
-            styleObj.init = (initProperty)?initProperty:styleObj.init;
+    GyoButton.prototype = {
+        button : (initStyleProperty)=>{
+            styleObj.init = (initStyleProperty)?initStyleProperty:styleObj.init;
             for(let node of nodeArr){
                 initStyle(node);
             }
@@ -68,6 +78,40 @@
         }
     }
 
-    // return Constructor;
-   window.gyo = Gyo;
+    //GyoToggleButton
+    //Private Member
+    let nodeStateArr;
+    //Method
+    const initToggle = ()=>{
+        for(let el of nodeStateArr){
+             el[0].addEventListener('mouseup', (e)=>{
+                e.stopPropagation();
+                el[1] = !el[1];
+                let stateStyle;
+                if(el[1]) {
+                    stateStyle = Object.entries(styleObj.state_effect);
+                } else{
+                    stateStyle = Object.entries(styleObj.state_effect_out);
+                }
+                for(let v of stateStyle){
+                    e.currentTarget.style[v[0]] = v[1];
+                }
+             })
+        }
+    }
+    const GyoToggleButton = function(sel){
+        GyoButton.call(this, sel);
+        nodeStateArr = Array.from(nodeArr).map((el)=>[el, false]);
+    };
+    GyoToggleButton.prototype = Object.create(GyoButton.prototype);
+    GyoToggleButton.prototype.constructor = GyoToggleButton;
+
+    GyoToggleButton.prototype.toggle = (stateProp, stateOutProp)=>{
+        styleObj.state_effect = (stateProp)?stateProp:styleObj.state_effect;
+        styleObj.state_effect_out = (stateOutProp)?stateOutProp:styleObj.state_effect_out;
+        initToggle();
+    }
+
+   window.gyoButton = GyoButton;
+   window.gyoToggleButton = GyoToggleButton;
 })();
