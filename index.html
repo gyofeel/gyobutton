@@ -16,7 +16,9 @@
     <button class="toggle">HELLO</button>
     <button class="toggle">HELLO</button>
     <button class="toggle">HELLO</button>
-    <button class="toggle">HELLO</button>
+    <button class="toggle-style-custom">Toggle Style Custom</button>
+    <button class="toggle-style-custom">Toggle Style Custom</button>
+    <button class="toggle-style-custom">Toggle Style Custom</button>
 </body>
 </html>
 <script type="text/javascript">
@@ -52,7 +54,15 @@
     g2.event('mouseover', onMouseOver);
     g2.event('mouseout', onMouseOut);
 
+    let onToggleCallback = (node, state)=>{
+        console.log(node);
+        console.log(state);
+    }
     let g3 = new gyoToggleButton(".toggle");
     g3.button();
-    g3.toggle();
+    g3.toggle(onToggleCallback);
+
+    let g4 = new gyoToggleButton(".toggle-style-custom");
+    g4.button();
+    g4.toggle(onToggleCallback, {color:'red'}, {color:'black'})
 </script>
