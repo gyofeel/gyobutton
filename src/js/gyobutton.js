@@ -1,4 +1,5 @@
-let Gyo = {};
+let Gyo 
+window.Gyo = Gyo = {};
 const styleObj = {//임시로 전역객체로 ... webpack 진행하며 처리할 것....
     init : {
         width:'120px',
@@ -25,7 +26,7 @@ const styleObj = {//임시로 전역객체로 ... webpack 진행하며 처리할
     'use strict'
 
     //GyoButton
-    //Private Memeber
+    //Private Memeberㅞ
     //Variable
     let selector, nodeArr;
     //Object
