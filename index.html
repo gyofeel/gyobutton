@@ -13,6 +13,12 @@
     <button id="i-2" class="button">BUTTON</button>
     <button id="i-3" class="button">BUTTON</button>
     <button id="s-1">HELLO</button>
+    <button class="toggle">HELLO</button>
+    <button class="toggle">HELLO</button>
+    <button class="toggle">HELLO</button>
+    <button class="toggle-style-custom">Toggle Style Custom</button>
+    <button class="toggle-style-custom">Toggle Style Custom</button>
+    <button class="toggle-style-custom">Toggle Style Custom</button>
 </body>
 </html>
 <script type="text/javascript">
@@ -29,14 +35,14 @@
         console.log('onMouseOut');
     }
 
-    let g = new gyo(".button");
+    let g = new gyoButton(".button");
     g.button();
     g.event('mousedown', onMouseDown);
     g.event('mouseup', onMouseUp);
     g.event('mouseover', onMouseOver);
     g.event('mouseout', onMouseOut);
 
-    let g2 = new gyo("#s-1");
+    let g2 = new gyoButton("#s-1");
     g2.button({
         backgroundColor:'yellow',
         width:'150px',
@@ -47,4 +53,16 @@
     }, 'scale');
     g2.event('mouseover', onMouseOver);
     g2.event('mouseout', onMouseOut);
+
+    let onToggleCallback = (node, state)=>{
+        console.log(node);
+        console.log(state);
+    }
+    let g3 = new gyoToggleButton(".toggle");
+    g3.button();
+    g3.toggle(onToggleCallback);
+
+    let g4 = new gyoToggleButton(".toggle-style-custom");
+    g4.button();
+    g4.toggle(onToggleCallback, {color:'red'}, {color:'black'})
 </script>
