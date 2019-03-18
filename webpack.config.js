@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-    entry: ['@babel/polyfill', './src/js/gyobutton.js'],
+    entry: ['@babel/polyfill', './src/js/gyobutton.js', './src/css/index.scss'],
 
     output: {
         path: path.resolve(__dirname, 'dist/js'),
@@ -21,6 +21,15 @@ module.exports = {
                     presets: ['@babel/preset-env']
                   }
                 }
+            },
+            {
+                test: /\.scss$/,
+                use:[
+                    "style-loader",
+                    "css-loader",
+                    "sass-loader"
+                ],
+                exclude: /node_modules/
             }
         ]
     },
