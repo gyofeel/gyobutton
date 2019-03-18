@@ -1,5 +1,5 @@
 let Gyo = {};
-const styleObj = {//임시로 전역객체로 ... webpack 진행하며 처리할 것...
+const styleObj = {//임시로 전역객체로 ... webpack 진행하며 처리할 것....
     init : {
         width:'120px',
         height:'70px',
