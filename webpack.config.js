@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-    entry: ['@babel/polyfill', './src/js/gyobutton.js', './src/css/index.scss'],
+    entry: ['@babel/polyfill', './src/js/gyobutton.js'/*, './src/css/index.scss'*/],
 
     output: {
         path: path.resolve(__dirname, 'dist/js'),
@@ -22,15 +22,15 @@ module.exports = {
                   }
                 }
             },
-            {
-                test: /\.scss$/,
-                use:[
-                    "style-loader",
-                    "css-loader",
-                    "sass-loader"
-                ],
-                exclude: /node_modules/
-            }
+            // {
+            //     test: /\.scss$/,
+            //     use:[
+            //         "style-loader",
+            //         "css-loader",
+            //         "sass-loader"
+            //     ],
+            //     exclude: /node_modules/
+            // }
         ]
     },
     devtool: 'source-map',
