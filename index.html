@@ -35,14 +35,14 @@
         console.log('onMouseOut');
     }
 
-    let g = new gyoButton(".button");
+    let g = new Gyo.button(".button");
     g.button();
     g.event('mousedown', onMouseDown);
     g.event('mouseup', onMouseUp);
     g.event('mouseover', onMouseOver);
     g.event('mouseout', onMouseOut);
 
-    let g2 = new gyoButton("#s-1");
+    let g2 = new Gyo.button("#s-1");
     g2.button({
         backgroundColor:'yellow',
         width:'150px',
@@ -58,11 +58,11 @@
         console.log(node);
         console.log(state);
     }
-    let g3 = new gyoToggleButton(".toggle");
+    let g3 = new Gyo.toggleButton(".toggle");
     g3.button();
     g3.toggle(onToggleCallback);
 
-    let g4 = new gyoToggleButton(".toggle-style-custom");
+    let g4 = new Gyo.toggleButton(".toggle-style-custom");
     g4.button();
     g4.toggle(onToggleCallback, {color:'red'}, {color:'black'})
 </script>
