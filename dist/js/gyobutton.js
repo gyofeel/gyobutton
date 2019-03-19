@@ -9692,15 +9692,174 @@ module.exports = g;
 
 /***/ }),
 
-/***/ "./src/js/gyobutton.js":
-/*!*****************************!*\
-  !*** ./src/js/gyobutton.js ***!
-  \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ "./src/js/button.js":
+/*!**************************!*\
+  !*** ./src/js/button.js ***!
+  \**************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _style__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style */ "./src/js/style.js");
+
+'use strict'; //GyoButton
+//Private Memeber
+//Variable
+
+
+var selector, nodeArr; //Method
+
+var returnComputedStyle = function returnComputedStyle(node, property) {
+  return window.getComputedStyle(node)[property];
+};
+
+var initStyle = function initStyle(node, style) {
+  var iStyle = Object.entries(style);
+
+  for (var _i = 0; _i < iStyle.length; _i++) {
+    var v = iStyle[_i];
+    node.style[v[0]] = v[1];
+  }
+};
+
+var initEvent = function initEvent(node, event, callback) {
+  node.addEventListener(event, function (e) {
+    e.stopPropagation();
+    callback();
+  });
+}; //Constructor
+
+
+var GyoButton = function GyoButton(sel) {
+  try {
+    if (sel && typeof sel === 'string') {
+      selector = sel;
+      nodeArr = document.querySelectorAll(selector);
+      if (!nodeArr || nodeArr.length === 0) throw new Error("Didn't find any element-node from this arguments : \"".concat(selector, "\""));else {
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+          for (var _iterator = nodeArr[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var v = _step.value;
+            var temp = returnComputedStyle(v, 'display');
+            if (temp !== 'inline-block' && temp !== 'block') throw new Error("Not supported display value of element : ".concat(temp));
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator.return != null) {
+              _iterator.return();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
+          }
+        }
+      }
+    } else throw new Error('Arguments Error');
+  } catch (e) {
+    console.error(e);
+    return;
+  }
+};
+
+GyoButton.prototype = {
+  getNodeArr: function getNodeArr() {
+    return nodeArr;
+  },
+  button: function button(initStyleProperty) {
+    var style = initStyleProperty ? initStyleProperty : _style__WEBPACK_IMPORTED_MODULE_0__["default"].init;
+    var _iteratorNormalCompletion2 = true;
+    var _didIteratorError2 = false;
+    var _iteratorError2 = undefined;
+
+    try {
+      for (var _iterator2 = nodeArr[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+        var node = _step2.value;
+        initStyle(node, style);
+      }
+    } catch (err) {
+      _didIteratorError2 = true;
+      _iteratorError2 = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
+          _iterator2.return();
+        }
+      } finally {
+        if (_didIteratorError2) {
+          throw _iteratorError2;
+        }
+      }
+    }
+  },
+  event: function event(eventName, callback) {
+    var _iteratorNormalCompletion3 = true;
+    var _didIteratorError3 = false;
+    var _iteratorError3 = undefined;
+
+    try {
+      for (var _iterator3 = nodeArr[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+        var node = _step3.value;
+        initEvent(node, eventName, callback);
+      }
+    } catch (err) {
+      _didIteratorError3 = true;
+      _iteratorError3 = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion3 && _iterator3.return != null) {
+          _iterator3.return();
+        }
+      } finally {
+        if (_didIteratorError3) {
+          throw _iteratorError3;
+        }
+      }
+    }
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (GyoButton);
+
+/***/ }),
+
+/***/ "./src/js/gyo.js":
+/*!***********************!*\
+  !*** ./src/js/gyo.js ***!
+  \***********************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./button */ "./src/js/button.js");
+/* harmony import */ var _togglebutton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./togglebutton */ "./src/js/togglebutton.js");
+
 
 var Gyo;
 window.Gyo = Gyo = {};
+Gyo.button = _button__WEBPACK_IMPORTED_MODULE_1__["default"];
+Gyo.toggleButton = _togglebutton__WEBPACK_IMPORTED_MODULE_2__["default"];
+
+/***/ }),
+
+/***/ "./src/js/style.js":
+/*!*************************!*\
+  !*** ./src/js/style.js ***!
+  \*************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+ //default button style
+
 var styleObj = {
   //임시로 전역객체로 ... webpack 진행하며 처리할 것....
   init: {
@@ -9723,236 +9882,125 @@ var styleObj = {
     color: 'black'
   }
 };
+/* harmony default export */ __webpack_exports__["default"] = (styleObj);
 
-(function () {
-  'use strict'; //GyoButton
-  //Private Memeberㅞ
-  //Variable
+/***/ }),
 
-  var selector, nodeArr; //Object
-  //Method
+/***/ "./src/js/togglebutton.js":
+/*!********************************!*\
+  !*** ./src/js/togglebutton.js ***!
+  \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-  var returnComputedStyle = function returnComputedStyle(node, property) {
-    return window.getComputedStyle(node)[property];
-  };
-
-  var initStyle = function initStyle(node, style) {
-    var iStyle = Object.entries(style);
-
-    for (var _i = 0; _i < iStyle.length; _i++) {
-      var v = iStyle[_i];
-      node.style[v[0]] = v[1];
-    }
-  };
-
-  var initEvent = function initEvent(node, event, callback) {
-    node.addEventListener(event, function (e) {
-      e.stopPropagation();
-      callback();
-    });
-  }; //Constructor
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./button */ "./src/js/button.js");
+/* harmony import */ var _style__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style */ "./src/js/style.js");
 
 
-  var GyoButton = function GyoButton(sel) {
-    try {
-      if (sel && typeof sel === 'string') {
-        selector = sel;
-        nodeArr = document.querySelectorAll(selector);
-        if (!nodeArr || nodeArr.length === 0) throw new Error("Didn't find any element-node from this arguments : \"".concat(selector, "\""));else {
-          var _iteratorNormalCompletion = true;
-          var _didIteratorError = false;
-          var _iteratorError = undefined;
+'use strict'; //GyoToggleButton
+//Private Member
 
-          try {
-            for (var _iterator = nodeArr[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-              var v = _step.value;
-              var temp = returnComputedStyle(v, 'display');
-              if (temp !== 'inline-block' && temp !== 'block') throw new Error("Not supported display value of element : ".concat(temp));
-            }
-          } catch (err) {
-            _didIteratorError = true;
-            _iteratorError = err;
-          } finally {
-            try {
-              if (!_iteratorNormalCompletion && _iterator.return != null) {
-                _iterator.return();
-              }
-            } finally {
-              if (_didIteratorError) {
-                throw _iteratorError;
-              }
-            }
-          }
+
+var nodeStateArr; //Method
+
+var initToggle = function initToggle(cb, effect, effectOut) {
+  var _iteratorNormalCompletion = true;
+  var _didIteratorError = false;
+  var _iteratorError = undefined;
+
+  try {
+    var _loop = function _loop() {
+      var el = _step.value;
+      el[0].addEventListener('mouseup', function (e) {
+        e.stopPropagation();
+        el[1] = !el[1];
+        var stateStyle;
+
+        if (el[1]) {
+          stateStyle = Object.entries(effect);
+        } else {
+          stateStyle = Object.entries(effectOut);
         }
-      } else throw new Error('Arguments Error');
-    } catch (e) {
-      console.error(e);
-      return;
-    }
-  };
 
-  GyoButton.prototype = {
-    getNodeArr: function getNodeArr() {
-      return nodeArr;
-    },
-    button: function button(initStyleProperty) {
-      var style = initStyleProperty ? initStyleProperty : styleObj.init;
-      var _iteratorNormalCompletion2 = true;
-      var _didIteratorError2 = false;
-      var _iteratorError2 = undefined;
+        var _iteratorNormalCompletion2 = true;
+        var _didIteratorError2 = false;
+        var _iteratorError2 = undefined;
 
-      try {
-        for (var _iterator2 = nodeArr[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-          var node = _step2.value;
-          initStyle(node, style);
-        }
-      } catch (err) {
-        _didIteratorError2 = true;
-        _iteratorError2 = err;
-      } finally {
         try {
-          if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
-            _iterator2.return();
-          }
+          for (var _iterator2 = stateStyle[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+            var v = _step2.value;
+            e.currentTarget.style[v[0]] = v[1];
+          } //callback function have value of node element and toggle state of this.
+
+        } catch (err) {
+          _didIteratorError2 = true;
+          _iteratorError2 = err;
         } finally {
-          if (_didIteratorError2) {
-            throw _iteratorError2;
-          }
-        }
-      }
-    },
-    event: function event(eventName, callback) {
-      var _iteratorNormalCompletion3 = true;
-      var _didIteratorError3 = false;
-      var _iteratorError3 = undefined;
-
-      try {
-        for (var _iterator3 = nodeArr[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-          var node = _step3.value;
-          initEvent(node, eventName, callback);
-        }
-      } catch (err) {
-        _didIteratorError3 = true;
-        _iteratorError3 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion3 && _iterator3.return != null) {
-            _iterator3.return();
-          }
-        } finally {
-          if (_didIteratorError3) {
-            throw _iteratorError3;
-          }
-        }
-      }
-    }
-  };
-  Gyo.button = GyoButton;
-})();
-
-(function () {
-  'use strict'; //GyoToggleButton
-  //Private Member
-
-  var nodeStateArr; //Method
-
-  var initToggle = function initToggle(cb, effect, effectOut) {
-    var _iteratorNormalCompletion4 = true;
-    var _didIteratorError4 = false;
-    var _iteratorError4 = undefined;
-
-    try {
-      var _loop = function _loop() {
-        var el = _step4.value;
-        el[0].addEventListener('mouseup', function (e) {
-          e.stopPropagation();
-          el[1] = !el[1];
-          var stateStyle;
-
-          if (el[1]) {
-            stateStyle = Object.entries(effect);
-          } else {
-            stateStyle = Object.entries(effectOut);
-          }
-
-          var _iteratorNormalCompletion5 = true;
-          var _didIteratorError5 = false;
-          var _iteratorError5 = undefined;
-
           try {
-            for (var _iterator5 = stateStyle[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
-              var v = _step5.value;
-              e.currentTarget.style[v[0]] = v[1];
-            } //callback function have value of node element and toggle state of this.
-
-          } catch (err) {
-            _didIteratorError5 = true;
-            _iteratorError5 = err;
+            if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
+              _iterator2.return();
+            }
           } finally {
-            try {
-              if (!_iteratorNormalCompletion5 && _iterator5.return != null) {
-                _iterator5.return();
-              }
-            } finally {
-              if (_didIteratorError5) {
-                throw _iteratorError5;
-              }
+            if (_didIteratorError2) {
+              throw _iteratorError2;
             }
           }
+        }
 
-          cb(e.currentTarget, el[1]);
-        });
-      };
+        cb(e.currentTarget, el[1]);
+      });
+    };
 
-      for (var _iterator4 = nodeStateArr[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-        _loop();
+    for (var _iterator = nodeStateArr[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      _loop();
+    }
+  } catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion && _iterator.return != null) {
+        _iterator.return();
       }
-    } catch (err) {
-      _didIteratorError4 = true;
-      _iteratorError4 = err;
     } finally {
-      try {
-        if (!_iteratorNormalCompletion4 && _iterator4.return != null) {
-          _iterator4.return();
-        }
-      } finally {
-        if (_didIteratorError4) {
-          throw _iteratorError4;
-        }
+      if (_didIteratorError) {
+        throw _iteratorError;
       }
     }
-  };
+  }
+};
 
-  var GyoToggleButton = function GyoToggleButton(sel) {
-    Gyo.button.call(this, sel);
-    nodeStateArr = Array.from(this.getNodeArr()).map(function (el) {
-      return [el, false];
-    });
-  };
+var GyoToggleButton = function GyoToggleButton(sel) {
+  Gyo.button.call(this, sel);
+  nodeStateArr = Array.from(this.getNodeArr()).map(function (el) {
+    return [el, false];
+  });
+};
 
-  GyoToggleButton.prototype = Object.create(Gyo.button.prototype);
-  GyoToggleButton.prototype.constructor = GyoToggleButton;
+GyoToggleButton.prototype = Object.create(_button__WEBPACK_IMPORTED_MODULE_0__["default"].prototype);
+GyoToggleButton.prototype.constructor = GyoToggleButton;
 
-  GyoToggleButton.prototype.toggle = function (callback, stateProp, stateOutProp) {
-    var styleStateEffect = stateProp ? stateProp : styleObj.state_effect;
-    var styleStateEffectOut = stateOutProp ? stateOutProp : styleObj.state_effect_out;
-    initToggle(callback, styleStateEffect, styleStateEffectOut);
-  };
+GyoToggleButton.prototype.toggle = function (callback, stateProp, stateOutProp) {
+  var styleStateEffect = stateProp ? stateProp : _style__WEBPACK_IMPORTED_MODULE_1__["default"].state_effect;
+  var styleStateEffectOut = stateOutProp ? stateOutProp : _style__WEBPACK_IMPORTED_MODULE_1__["default"].state_effect_out;
+  initToggle(callback, styleStateEffect, styleStateEffectOut);
+};
 
-  Gyo.toggleButton = GyoToggleButton;
-})();
+/* harmony default export */ __webpack_exports__["default"] = (GyoToggleButton);
 
 /***/ }),
 
 /***/ 0:
-/*!***************************************************!*\
-  !*** multi @babel/polyfill ./src/js/gyobutton.js ***!
-  \***************************************************/
+/*!*********************************************!*\
+  !*** multi @babel/polyfill ./src/js/gyo.js ***!
+  \*********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! @babel/polyfill */"./node_modules/@babel/polyfill/lib/index.js");
-module.exports = __webpack_require__(/*! ./src/js/gyobutton.js */"./src/js/gyobutton.js");
+module.exports = __webpack_require__(/*! ./src/js/gyo.js */"./src/js/gyo.js");
 
 
 /***/ })
