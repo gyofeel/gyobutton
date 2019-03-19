@@ -1,32 +1,36 @@
+let Gyo 
+window.Gyo = Gyo = {};
+const styleObj = {//임시로 전역객체로 ... webpack 진행하며 처리할 것....
+    init : {
+        width:'120px',
+        height:'70px',
+        border:'1px solid black',
+        borderRadius: '10px',
+        backgroundColor:'white',
+        color:'black',
+        cursor:'pointer',
+        transition:'0.5s',
+        transform:''
+    },
+    state_effect : {
+        backgroundColor : 'black',
+        color: 'white'
+    },
+    state_effect_out : {
+        backgroundColor : 'white',
+        color: 'black'
+    }
+};
+
 (function(){
     'use strict'
 
     //GyoButton
-    //Private Memeber
+    //Private Memeberㅞ
     //Variable
     let selector, nodeArr;
     //Object
-    const styleObj = {
-        init : {
-            width:'120px',
-            height:'70px',
-            border:'1px solid black',
-            borderRadius: '10px',
-            backgroundColor:'white',
-            color:'black',
-            cursor:'pointer',
-            transition:'0.5s',
-            transform:''
-        },
-        state_effect : {
-            backgroundColor : 'black',
-            color: 'white'
-        },
-        state_effect_out : {
-            backgroundColor : 'white',
-            color: 'black'
-        }
-    };
+
     //Method
     const returnComputedStyle = (node ,property)=>{
         return window.getComputedStyle(node)[property];
@@ -65,6 +69,7 @@
     };
 
     GyoButton.prototype = {
+        getNodeArr : ()=>nodeArr,
         button : (initStyleProperty)=>{
             const style = (initStyleProperty)?initStyleProperty:styleObj.init;
             for(let node of nodeArr){
@@ -77,6 +82,12 @@
             }
         }
     };
+
+   Gyo.button = GyoButton;
+})();
+
+(function(){
+    'use strict'
 
     //GyoToggleButton
     //Private Member
@@ -102,10 +113,10 @@
         }
     };
     const GyoToggleButton = function(sel){
-        GyoButton.call(this, sel);
-        nodeStateArr = Array.from(nodeArr).map((el)=>[el, false]);
+        Gyo.button.call(this, sel);
+        nodeStateArr = Array.from(this.getNodeArr()).map((el)=>[el, false]);
     };
-    GyoToggleButton.prototype = Object.create(GyoButton.prototype);
+    GyoToggleButton.prototype = Object.create(Gyo.button.prototype);
     GyoToggleButton.prototype.constructor = GyoToggleButton;
 
     GyoToggleButton.prototype.toggle = (callback, stateProp, stateOutProp)=>{
@@ -114,6 +125,5 @@
         initToggle(callback, styleStateEffect, styleStateEffectOut);
     };
 
-   window.gyoButton = GyoButton;
-   window.gyoToggleButton = GyoToggleButton;
+    Gyo.toggleButton = GyoToggleButton;
 })();

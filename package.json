@@ -1,0 +1,30 @@
+{
+  "name": "project_gyobutton",
+  "version": "1.0.0",
+  "description": "gyobutton is 'Button Component'.",
+  "main": "gyobutton.js",
+  "scripts": {
+    "build": "webpack -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gyofeel/gyobutton.git"
+  },
+  "author": "Gyopil Seo (gyofeel)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gyofeel/gyobutton/issues"
+  },
+  "homepage": "https://github.com/gyofeel/gyobutton#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "babel-loader": "^8.0.5",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.2.5"
+  }
+}
