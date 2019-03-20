@@ -1,11 +1,11 @@
 const path = require('path');
 
 module.exports = {
-    entry: ['@babel/polyfill', './src/js/gyobutton.js'/*, './src/css/index.scss'*/],
+    entry: ['@babel/polyfill', './src/js/gyo.js'/*, './src/css/index.scss'*/],
 
     output: {
         path: path.resolve(__dirname, 'dist/js'),
-        filename: 'bundle.js'
+        filename: 'gyobutton.js'
     },
     module:{
         rules:[
