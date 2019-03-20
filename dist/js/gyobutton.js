@@ -9866,14 +9866,42 @@ GyoButton.prototype = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./button */ "./src/js/button.js");
-/* harmony import */ var _togglebutton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./togglebutton */ "./src/js/togglebutton.js");
+
+/* harmony import */ var _button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./button */ "./src/js/button.js");
+/* harmony import */ var _togglebutton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./togglebutton */ "./src/js/togglebutton.js");
+/* harmony import */ var _methods_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./methods.js */ "./src/js/methods.js");
+
 
 
 var Gyo;
-window.Gyo = Gyo = {};
-Gyo.button = _button__WEBPACK_IMPORTED_MODULE_1__["default"];
-Gyo.toggleButton = _togglebutton__WEBPACK_IMPORTED_MODULE_2__["default"];
+window.Gyo = Gyo = Gyo || {};
+Gyo.button = _button__WEBPACK_IMPORTED_MODULE_0__["default"];
+Gyo.toggleButton = _togglebutton__WEBPACK_IMPORTED_MODULE_1__["default"];
+Gyo.noConflict = _methods_js__WEBPACK_IMPORTED_MODULE_2__["noConflict"];
+
+/***/ }),
+
+/***/ "./src/js/methods.js":
+/*!***************************!*\
+  !*** ./src/js/methods.js ***!
+  \***************************/
+/*! exports provided: noConflict */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "noConflict", function() { return noConflict; });
+var _Gyo = window.Gyo;
+
+var noConflict = function noConflict(deep) {
+  var temp = window.Gyo;
+
+  if (deep && window.Gyo === Gyo) {
+    window.Gyo = _Gyo;
+  }
+
+  return temp;
+};
 
 /***/ }),
 
@@ -10027,7 +10055,7 @@ var initToggle = function initToggle(cb, effect, effectOut) {
 };
 
 var GyoToggleButton = function GyoToggleButton(sel) {
-  Gyo.button.call(this, sel);
+  _button__WEBPACK_IMPORTED_MODULE_0__["default"].call(this, sel);
   nodeStateArr = Array.from(this.getNodeArr()).map(function (el) {
     return [el, false];
   });

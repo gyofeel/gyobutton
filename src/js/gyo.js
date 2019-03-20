@@ -1,8 +1,12 @@
 import GyoButton from './button';
 import GyoToggleButton from './togglebutton';
 
-let Gyo 
-window.Gyo = Gyo = {};
+import {noConflict} from './methods.js'
+
+let Gyo;
+window.Gyo = Gyo = Gyo || {};
 
 Gyo.button = GyoButton;
-Gyo.toggleButton = GyoToggleButton;
+Gyo.toggleButton = GyoToggeButton;
+
+Gyo.noConflict = noConflict;
