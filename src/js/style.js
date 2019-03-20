@@ -1,7 +1,7 @@
 'use strict'
 
 //default button style
-const styleObj = {//임시로 전역객체로 ... webpack 진행하며 처리할 것....
+const styleObj = {
     init : {
         width:'120px',
         height:'70px',
@@ -23,4 +23,6 @@ const styleObj = {//임시로 전역객체로 ... webpack 진행하며 처리할
     }
 };
 
-export default styleObj;
+const prefixArr = ['webkit', 'moz', 'o', 'ms'];
+
+export {styleObj, prefixArr};

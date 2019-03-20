@@ -1,4 +1,4 @@
-import styleObj from './style'
+import {styleObj, prefixArr} from './style'
 
 'use strict'
 
@@ -15,6 +15,12 @@ const initStyle = (node, style)=>{
     const iStyle = Object.entries(style);
     for(let v of iStyle){
         node.style[v[0]] = v[1];
+        //To add vendor-prefix(Cross Browsing)
+        //v[0][0].toUpperCase(): first chracter of property name to capital chracter.
+        //Array.from(v[0]).splice(1).join(''): remove first character
+        // let temp = v[0][1].toUpperCase() + Array.from(v[0]).map((el, i)=>{if(i!==0)return el})
+        let temp = v[0][0].toUpperCase() + Array.from(v[0]).splice(1).join('');
+        for(let el of prefixArr) node.style[el+temp] = v[1];
     }
 };
 const initEvent = (node, event, callback)=>{

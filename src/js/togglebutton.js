@@ -1,5 +1,5 @@
 import GyoButton from './button';
-import styleObj from './style';
+import { styleObj, prefixArr } from './style';
 
 'use strict'
 
@@ -21,6 +21,8 @@ const initToggle = (cb, effect, effectOut)=>{
             }
             for(let v of stateStyle){
                 e.currentTarget.style[v[0]] = v[1];
+                let temp = v[0][0].toUpperCase() + Array.from(v[0]).splice(1).join('');
+                for(let el of prefixArr) e.currentTarget.style[el+temp] = v[1];
             }
             //callback function have value of node element and toggle state of this.
             cb(e.currentTarget, el[1]);
