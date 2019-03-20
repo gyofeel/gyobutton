@@ -7,6 +7,6 @@ let Gyo;
 window.Gyo = Gyo = Gyo || {};
 
 Gyo.button = GyoButton;
-Gyo.toggleButton = GyoToggeButton;
+Gyo.toggleButton = GyoToggleButton;
 
 Gyo.noConflict = noConflict;

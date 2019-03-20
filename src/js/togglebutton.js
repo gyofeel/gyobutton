@@ -30,9 +30,7 @@ const initToggle = (cb, effect, effectOut)=>{
     }
 };
 const GyoToggleButton = function(sel){
-
     GyoButton.call(this, sel);
-
     nodeStateArr = Array.from(this.getNodeArr()).map((el)=>[el, false]);
 };
 GyoToggleButton.prototype = Object.create(GyoButton.prototype);
