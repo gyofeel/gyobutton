@@ -9866,6 +9866,7 @@ GyoButton.prototype = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+
 /* harmony import */ var _button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./button */ "./src/js/button.js");
 /* harmony import */ var _togglebutton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./togglebutton */ "./src/js/togglebutton.js");
 /* harmony import */ var _methods_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./methods.js */ "./src/js/methods.js");
@@ -9901,8 +9902,6 @@ var noConflict = function noConflict(deep) {
 
   return temp;
 };
-
-
 
 /***/ }),
 
