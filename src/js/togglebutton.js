@@ -25,7 +25,7 @@ const initToggle = (cb, effect, effectOut)=>{
                 for(let el of prefixArr) e.currentTarget.style[el+temp] = v[1];
             }
             //callback function have value of node element and toggle state of this.
-            cb(e.currentTarget, el[1]);
+            if(cb) cb(e.currentTarget, el[1]);
             })
     }
 };
