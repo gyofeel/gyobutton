@@ -1,11 +1,12 @@
 import {styleObj, prefixArr} from './style'
+import {createKey} from 'private-parts';
 
 let GyoButton = function(){
     'use strict'
 
     //GyoButton
     //Private Memeber
-    let selector, nodeArr;
+    let _ = createKey();
     //Variable
     //Method
     const returnComputedStyle = (node ,property)=>{
@@ -34,11 +35,11 @@ let GyoButton = function(){
     let GyoButton = function(sel){
         try {
             if(sel && typeof sel === 'string'){
-                selector = sel;
-                nodeArr = document.querySelectorAll(selector);
-                if(!nodeArr || nodeArr.length===0) throw(new Error(`Didn\'t find any element-node from this arguments : "${selector}"`));
+                _(this).selector = sel;
+                _(this).nodeArr = document.querySelectorAll(_(this).selector);
+                if(!_(this).nodeArr  || _(this).nodeArr.length===0) throw(new Error(`Didn\'t find any element-node from this arguments : "${_(this).selector}"`));
                 else{
-                    for(let v of nodeArr){
+                    for(let v of _(this).nodeArr){
                         const temp = returnComputedStyle(v, 'display');
                         if(temp!=='inline-block'&&temp!=='block') throw(new Error(`Not supported display value of element : ${temp}`));
                     }
@@ -48,22 +49,18 @@ let GyoButton = function(){
             console.error(e);
             return;
         }
-
-        this.getNodeArr = function(){
-            return nodeArr;
-        }
     };
 
     GyoButton.prototype = {
-        getNodeArr : ()=>nodeArr,
-        button : (initStyleProperty)=>{
+        getNodeArr : function(){return _(this).nodeArr},
+        button : function(initStyleProperty){
             const style = (initStyleProperty)?initStyleProperty:styleObj.init;
-            for(let node of nodeArr){
+            for(let node of _(this).nodeArr ){
                 initStyle(node, style);
             }
         },
-        event : (eventName, callback)=>{
-            for(let node of nodeArr){
+        event : function(eventName, callback){
+            for(let node of _(this).nodeArr ){
                 initEvent(node, eventName, callback);
             }
         }

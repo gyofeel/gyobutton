@@ -8929,6 +8929,80 @@ module.exports = __webpack_require__(/*! ../modules/_core */ "./node_modules/cor
 
 /***/ }),
 
+/***/ "./node_modules/private-parts/index.js":
+/*!*********************************************!*\
+  !*** ./node_modules/private-parts/index.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * A function that returns a function that allows you to associate
+ * a public object with its private counterpart.
+ * @param {Function|Object} factory An optional argument that, is present, will
+ *   be used to create new objects in the store.
+ *   If factory is a function, it will be invoked with the key as an argument
+ *   and the return value will be the private instance.
+ *   If factory is an object, the private instance will be a new object with
+ *   factory as it's prototype.
+ */
+function createKey(factory){
+
+  // Create the factory based on the type of object passed.
+  factory = typeof factory == 'function'
+    ? factory
+    : createBound(factory);
+
+  // Store is used to map public objects to private objects.
+  var store = new WeakMap();
+
+  // Seen is used to track existing private objects.
+  var seen = new WeakMap();
+
+  /**
+   * An accessor function to get private instances from the store.
+   * @param {Object} key The public object that is associated with a private
+   *   object in the store.
+   */
+  return function(key) {
+    if (typeof key != 'object') return;
+
+    var value = store.get(key);
+    if (!value) {
+      // Make sure key isn't already the private instance of some existing key.
+      // This check helps prevent accidental double privatizing.
+      if (seen.has(key)) {
+        value = key;
+      } else {
+        value = factory(key);
+        store.set(key, value);
+        seen.set(value, true);
+      }
+    }
+    return value;
+  };
+}
+
+/**
+ * Function.prototype.bind doesn't work in PhantomJS or Safari 5.1,
+ * so we have to manually bind until support is dropped.
+ * This function is effectively `Object.create.bind(null, obj, {})`
+ * @param {Object} obj The first bound parameter to `Object.create`
+ * @return {Function} The bound function.
+ */
+function createBound(obj) {
+  return function() {
+    return Object.create(obj || Object.prototype);
+  };
+}
+
+module.exports = {
+  createKey: createKey
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/regenerator-runtime/runtime.js":
 /*!*****************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime.js ***!
@@ -9702,14 +9776,18 @@ module.exports = g;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _style__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style */ "./src/js/style.js");
+/* harmony import */ var private_parts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! private-parts */ "./node_modules/private-parts/index.js");
+/* harmony import */ var private_parts__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(private_parts__WEBPACK_IMPORTED_MODULE_1__);
+
 
 
 var GyoButton = function () {
   'use strict'; //GyoButton
   //Private Memeber
 
-  var selector, nodeArr; //Variable
+  var _ = Object(private_parts__WEBPACK_IMPORTED_MODULE_1__["createKey"])(); //Variable
   //Method
+
 
   var returnComputedStyle = function returnComputedStyle(node, property) {
     return window.getComputedStyle(node)[property];
@@ -9763,15 +9841,15 @@ var GyoButton = function () {
   var GyoButton = function GyoButton(sel) {
     try {
       if (sel && typeof sel === 'string') {
-        selector = sel;
-        nodeArr = document.querySelectorAll(selector);
-        if (!nodeArr || nodeArr.length === 0) throw new Error("Didn't find any element-node from this arguments : \"".concat(selector, "\""));else {
+        _(this).selector = sel;
+        _(this).nodeArr = document.querySelectorAll(_(this).selector);
+        if (!_(this).nodeArr || _(this).nodeArr.length === 0) throw new Error("Didn't find any element-node from this arguments : \"".concat(_(this).selector, "\""));else {
           var _iteratorNormalCompletion2 = true;
           var _didIteratorError2 = false;
           var _iteratorError2 = undefined;
 
           try {
-            for (var _iterator2 = nodeArr[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+            for (var _iterator2 = _(this).nodeArr[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
               var v = _step2.value;
               var temp = returnComputedStyle(v, 'display');
               if (temp !== 'inline-block' && temp !== 'block') throw new Error("Not supported display value of element : ".concat(temp));
@@ -9796,15 +9874,11 @@ var GyoButton = function () {
       console.error(e);
       return;
     }
-
-    this.getNodeArr = function () {
-      return nodeArr;
-    };
   };
 
   GyoButton.prototype = {
     getNodeArr: function getNodeArr() {
-      return nodeArr;
+      return _(this).nodeArr;
     },
     button: function button(initStyleProperty) {
       var style = initStyleProperty ? initStyleProperty : _style__WEBPACK_IMPORTED_MODULE_0__["styleObj"].init;
@@ -9813,7 +9887,7 @@ var GyoButton = function () {
       var _iteratorError3 = undefined;
 
       try {
-        for (var _iterator3 = nodeArr[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+        for (var _iterator3 = _(this).nodeArr[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
           var node = _step3.value;
           initStyle(node, style);
         }
@@ -9838,7 +9912,7 @@ var GyoButton = function () {
       var _iteratorError4 = undefined;
 
       try {
-        for (var _iterator4 = nodeArr[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+        for (var _iterator4 = _(this).nodeArr[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
           var node = _step4.value;
           initEvent(node, eventName, callback);
         }
@@ -9964,120 +10038,125 @@ var prefixArr = ['webkit', 'moz', 'o', 'ms'];
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./button */ "./src/js/button.js");
 /* harmony import */ var _style__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style */ "./src/js/style.js");
+/* harmony import */ var private_parts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! private-parts */ "./node_modules/private-parts/index.js");
+/* harmony import */ var private_parts__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(private_parts__WEBPACK_IMPORTED_MODULE_2__);
 
 
-'use strict'; //GyoToggleButton
-//Private Member
 
 
-var nodeStateArr; //Method
+var GyoToggleButton = function () {
+  'use strict'; //GyoToggleButton
+  //Private Member
 
-var initToggle = function initToggle(cb, effect, effectOut) {
-  var _iteratorNormalCompletion = true;
-  var _didIteratorError = false;
-  var _iteratorError = undefined;
+  var _ = Object(private_parts__WEBPACK_IMPORTED_MODULE_2__["createKey"])(); // let nodeStateArr;
+  //Method
 
-  try {
-    var _loop = function _loop() {
-      var el = _step.value;
-      el[0].addEventListener('mouseup', function (e) {
-        e.stopPropagation();
-        el[1] = !el[1];
-        var stateStyle;
 
-        if (el[1]) {
-          stateStyle = Object.entries(effect);
-        } else {
-          stateStyle = Object.entries(effectOut);
-        }
+  var initToggle = function initToggle(el, effect, effectOut, cb) {
+    el[0].addEventListener('mouseup', function (e) {
+      e.stopPropagation();
+      el[1] = !el[1];
+      var stateStyle;
 
-        var _iteratorNormalCompletion2 = true;
-        var _didIteratorError2 = false;
-        var _iteratorError2 = undefined;
+      if (el[1]) {
+        stateStyle = Object.entries(effect);
+      } else {
+        stateStyle = Object.entries(effectOut);
+      }
 
-        try {
-          for (var _iterator2 = stateStyle[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-            var v = _step2.value;
-            e.currentTarget.style[v[0]] = v[1];
-            var temp = v[0][0].toUpperCase() + Array.from(v[0]).splice(1).join('');
-            var _iteratorNormalCompletion3 = true;
-            var _didIteratorError3 = false;
-            var _iteratorError3 = undefined;
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
 
-            try {
-              for (var _iterator3 = _style__WEBPACK_IMPORTED_MODULE_1__["prefixArr"][Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-                var _el = _step3.value;
-                e.currentTarget.style[_el + temp] = v[1];
-              }
-            } catch (err) {
-              _didIteratorError3 = true;
-              _iteratorError3 = err;
-            } finally {
-              try {
-                if (!_iteratorNormalCompletion3 && _iterator3.return != null) {
-                  _iterator3.return();
-                }
-              } finally {
-                if (_didIteratorError3) {
-                  throw _iteratorError3;
-                }
-              }
-            }
-          } //callback function have value of node element and toggle state of this.
+      try {
+        for (var _iterator = stateStyle[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var v = _step.value;
+          e.currentTarget.style[v[0]] = v[1];
+          var temp = v[0][0].toUpperCase() + Array.from(v[0]).splice(1).join('');
+          var _iteratorNormalCompletion2 = true;
+          var _didIteratorError2 = false;
+          var _iteratorError2 = undefined;
 
-        } catch (err) {
-          _didIteratorError2 = true;
-          _iteratorError2 = err;
-        } finally {
           try {
-            if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
-              _iterator2.return();
+            for (var _iterator2 = _style__WEBPACK_IMPORTED_MODULE_1__["prefixArr"][Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+              var _el = _step2.value;
+              e.currentTarget.style[_el + temp] = v[1];
             }
+          } catch (err) {
+            _didIteratorError2 = true;
+            _iteratorError2 = err;
           } finally {
-            if (_didIteratorError2) {
-              throw _iteratorError2;
+            try {
+              if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
+                _iterator2.return();
+              }
+            } finally {
+              if (_didIteratorError2) {
+                throw _iteratorError2;
+              }
             }
           }
+        } //callback function have value of node element and toggle state of this.
+
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return != null) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
         }
+      }
 
-        if (cb) cb(e.currentTarget, el[1]);
-      });
-    };
+      if (cb) cb(e.currentTarget, el[1]);
+    });
+  };
 
-    for (var _iterator = nodeStateArr[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-      _loop();
-    }
-  } catch (err) {
-    _didIteratorError = true;
-    _iteratorError = err;
-  } finally {
+  var GyoToggleButton = function GyoToggleButton(sel) {
+    _button__WEBPACK_IMPORTED_MODULE_0__["default"].call(this, sel);
+    _(this).nodeStateArr = Array.from(this.getNodeArr()).map(function (el) {
+      return [el, false];
+    });
+  };
+
+  GyoToggleButton.prototype = Object.create(_button__WEBPACK_IMPORTED_MODULE_0__["default"].prototype);
+  GyoToggleButton.prototype.constructor = GyoToggleButton;
+
+  GyoToggleButton.prototype.toggle = function (stateProp, stateOutProp, callback) {
+    var styleStateEffect = stateProp || Array.from(stateProp) ? stateProp : _style__WEBPACK_IMPORTED_MODULE_1__["styleObj"].state_effect;
+    var styleStateEffectOut = stateOutProp ? stateOutProp : _style__WEBPACK_IMPORTED_MODULE_1__["styleObj"].state_effect_out;
+    var _iteratorNormalCompletion3 = true;
+    var _didIteratorError3 = false;
+    var _iteratorError3 = undefined;
+
     try {
-      if (!_iteratorNormalCompletion && _iterator.return != null) {
-        _iterator.return();
+      for (var _iterator3 = _(this).nodeStateArr[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+        var el = _step3.value;
+        initToggle(el, styleStateEffect, styleStateEffectOut, callback);
       }
+    } catch (err) {
+      _didIteratorError3 = true;
+      _iteratorError3 = err;
     } finally {
-      if (_didIteratorError) {
-        throw _iteratorError;
+      try {
+        if (!_iteratorNormalCompletion3 && _iterator3.return != null) {
+          _iterator3.return();
+        }
+      } finally {
+        if (_didIteratorError3) {
+          throw _iteratorError3;
+        }
       }
     }
-  }
-};
+  };
 
-var GyoToggleButton = function GyoToggleButton(sel) {
-  _button__WEBPACK_IMPORTED_MODULE_0__["default"].call(this, sel);
-  nodeStateArr = Array.from(this.getNodeArr()).map(function (el) {
-    return [el, false];
-  });
-};
-
-GyoToggleButton.prototype = Object.create(_button__WEBPACK_IMPORTED_MODULE_0__["default"].prototype);
-GyoToggleButton.prototype.constructor = GyoToggleButton;
-
-GyoToggleButton.prototype.toggle = function (callback, stateProp, stateOutProp) {
-  var styleStateEffect = stateProp ? stateProp : _style__WEBPACK_IMPORTED_MODULE_1__["styleObj"].state_effect;
-  var styleStateEffectOut = stateOutProp ? stateOutProp : _style__WEBPACK_IMPORTED_MODULE_1__["styleObj"].state_effect_out;
-  initToggle(callback, styleStateEffect, styleStateEffectOut);
-};
+  return GyoToggleButton;
+}();
 
 /* harmony default export */ __webpack_exports__["default"] = (GyoToggleButton);
 
