@@ -23,7 +23,7 @@ let GyoToggleButton = function(){
     GyoToggleButton.prototype = Object.create(GyoButton.prototype);
     GyoToggleButton.prototype.constructor = GyoToggleButton;
 
-    GyoToggleButton.prototype.toggle = function(stateProp, stateOutProp, callback){
+    GyoToggleButton.prototype.toggle = function(callback, stateProp, stateOutProp){
         let that = this;
         const styleStateEffect = (stateProp)?stateProp:styleObj.state_effect;
         const styleStateEffectOut = (stateOutProp)?stateOutProp:styleObj.state_effect_out;
@@ -33,7 +33,7 @@ let GyoToggleButton = function(){
                 el[1] = false;
             }
         }
-        
+
         _(this).callback = function(e){
             const stateIdx = (_(that).nodeStateArr).findIndex((el)=>el[0]===this);
             let stateStyle;

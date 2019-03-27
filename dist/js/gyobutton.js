@@ -10110,7 +10110,7 @@ var GyoToggleButton = function () {
   GyoToggleButton.prototype = Object.create(_button__WEBPACK_IMPORTED_MODULE_0__["default"].prototype);
   GyoToggleButton.prototype.constructor = GyoToggleButton;
 
-  GyoToggleButton.prototype.toggle = function (stateProp, stateOutProp, callback) {
+  GyoToggleButton.prototype.toggle = function (callback, stateProp, stateOutProp) {
     var that = this;
     var styleStateEffect = stateProp ? stateProp : _style__WEBPACK_IMPORTED_MODULE_1__["styleObj"].state_effect;
     var styleStateEffectOut = stateOutProp ? stateOutProp : _style__WEBPACK_IMPORTED_MODULE_1__["styleObj"].state_effect_out;
