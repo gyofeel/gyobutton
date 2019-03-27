@@ -10,8 +10,7 @@ let GyoToggleButton = function(){
     let _ = createKey();
     // let nodeStateArr;
     //Method
-    const initToggle = function(el, effect, effectOut, cb){
-        el[0].addEventListener('mouseup', function(e){
+    let onToggle = function(e, el){
         e.stopPropagation();
         el[1] = !el[1];
         let stateStyle;
@@ -27,7 +26,9 @@ let GyoToggleButton = function(){
         }
         //callback function have value of node element and toggle state of this.
         if(cb) cb(e.currentTarget, el[1]);
-        })
+    };
+    const initToggle = function(el, effect, effectOut, cb){
+        el[0].addEventListener('mouseup', onToggle)
     };
     const GyoToggleButton = function(sel){
         GyoButton.call(this, sel);
@@ -37,7 +38,7 @@ let GyoToggleButton = function(){
     GyoToggleButton.prototype.constructor = GyoToggleButton;
 
     GyoToggleButton.prototype.toggle = function(stateProp, stateOutProp, callback){
-        const styleStateEffect = (stateProp||Array.from(stateProp))?stateProp:styleObj.state_effect;
+        const styleStateEffect = (stateProp)?stateProp:styleObj.state_effect;
         const styleStateEffectOut = (stateOutProp)?stateOutProp:styleObj.state_effect_out;
         for(let el of _(this).nodeStateArr){
             initToggle(el, styleStateEffect, styleStateEffectOut, callback);

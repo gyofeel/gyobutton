@@ -5,31 +5,30 @@ let GyoButton = function(){
     'use strict'
 
     //GyoButton
-    //Private Memeber
-    let _ = createKey();
-    //Variable
+    //private
     //Method
-    const returnComputedStyle = (node ,property)=>{
-        return window.getComputedStyle(node)[property];
-    };
-    const initStyle = (node, style)=>{
-        const iStyle = Object.entries(style);
-        for(let v of iStyle){
-            node.style[v[0]] = v[1];
-            //To add vendor-prefix(Cross Browsing)
-            //v[0][0].toUpperCase(): first chracter of property name to capital chracter.
-            //Array.from(v[0]).splice(1).join(''): remove first character
-            // let temp = v[0][1].toUpperCase() + Array.from(v[0]).map((el, i)=>{if(i!==0)return el})
-            let temp = v[0][0].toUpperCase() + Array.from(v[0]).splice(1).join('');
-            for(let el of prefixArr) node.style[el+temp] = v[1];
+    const privateMethods = {
+        returnComputedStyle: (node, property)=>window.getComputedStyle(node)[property],
+        initStyle : function(node, style){
+            const iStyle = Object.entries(style);
+            for(let v of iStyle){
+                node.style[v[0]] = v[1];
+                //To add vendor-prefix(Cross Browsing)
+                //v[0][0].toUpperCase(): first chracter of property name to capital chracter.
+                //Array.from(v[0]).splice(1).join(''): remove first character
+                // let temp = v[0][1].toUpperCase() + Array.from(v[0]).map((el, i)=>{if(i!==0)return el})
+                let temp = v[0][0].toUpperCase() + Array.from(v[0]).splice(1).join('');
+                for(let el of prefixArr) node.style[el+temp] = v[1];
+            }
+        },
+        addEvent: function(node, event, callback){
+            node.addEventListener(event, callback);
+        },
+        removeEvent: function(node, event, callback){
+            node.removeEventListener(event, callback);
         }
     };
-    const initEvent = (node, event, callback)=>{
-        node.addEventListener(event, (e)=>{
-            e.stopPropagation();
-            callback();
-        });
-    };
+    let _ = createKey(privateMethods);
 
     //Constructor
     let GyoButton = function(sel){
@@ -40,7 +39,7 @@ let GyoButton = function(){
                 if(!_(this).nodeArr  || _(this).nodeArr.length===0) throw(new Error(`Didn\'t find any element-node from this arguments : "${_(this).selector}"`));
                 else{
                     for(let v of _(this).nodeArr){
-                        const temp = returnComputedStyle(v, 'display');
+                        const temp = _(this).returnComputedStyle(v, 'display');
                         if(temp!=='inline-block'&&temp!=='block') throw(new Error(`Not supported display value of element : ${temp}`));
                     }
                 }
@@ -56,13 +55,22 @@ let GyoButton = function(){
         button : function(initStyleProperty){
             const style = (initStyleProperty)?initStyleProperty:styleObj.init;
             for(let node of _(this).nodeArr ){
-                initStyle(node, style);
+                _(this).initStyle(node, style);
             }
         },
-        event : function(eventName, callback){
-            for(let node of _(this).nodeArr ){
-                initEvent(node, eventName, callback);
+        addEvent : function(eventName, callback){
+            _(this).callback = function(e){
+                callback();
+            };
+            for(let node of _(this).nodeArr){
+                _(this).addEvent(node, eventName, _(this).callback);
             }
+        },
+        removeEvent : function(eventName, callback){
+            for(let node of _(this).nodeArr){
+                _(this).removeEvent(node, eventName, _(this).callback);
+            }
+            _(this).callback = null;
         }
     };
 
