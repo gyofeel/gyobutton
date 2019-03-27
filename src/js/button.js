@@ -52,6 +52,8 @@ let GyoButton = function(){
 
     GyoButton.prototype = {
         getNodeArr : function(){return _(this).nodeArr},
+        getAddEvent : function(){return _(this).addEvent},
+        getRemoveEvent : function(){return _(this).removeEvent},
         button : function(initStyleProperty){
             const style = (initStyleProperty)?initStyleProperty:styleObj.init;
             for(let node of _(this).nodeArr ){

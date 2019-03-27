@@ -130,11 +130,10 @@ g13.toggle();
 let g14 = new Gyo.toggleButton('#button-style-toggle');
 g14.button();
 g14.toggle();
-g14.toggle();
 
 //Toggle Event Callback Function
 const onMouseToggle = function(node, state){alert('Mouse Toggle! / '+node+' / '+state);}
 let g15 = new Gyo.toggleButton('#button-callback-toggle');
 g15.button();
-g15.toggle({},{}, onMouseToggle);
+g15.toggle({color:'green'},{color:'red'}, onMouseToggle);
 </script>
