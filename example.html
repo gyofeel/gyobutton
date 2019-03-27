@@ -116,10 +116,10 @@ g9.button();
 g10.button();
 g11.button();
 g12.button();
-g9.event('mousedown', onMouseDown);
-g10.event('mouseup', onMouseUp);
-g11.event('mouseover',onMouseOver);
-g12.event('mouseout',onMouseOut);
+g9.addEvent('mousedown', onMouseDown);
+g10.addEvent('mouseup', onMouseUp);
+g11.addEvent('mouseover',onMouseOver);
+g12.addEvent('mouseout',onMouseOut);
 
 //Toggle Button
 let g13 = new Gyo.toggleButton('#button-toggle');
@@ -128,13 +128,31 @@ g13.toggle();
 
 //Toggle Style Customizing
 let g14 = new Gyo.toggleButton('#button-style-toggle');
-g14.button();
-g14.toggle();
-g14.toggle();
+g14.button({
+    width:'150px',
+    height:'150px',
+    borderRadius:'30px',
+    border:'2px solid black',
+    backgroundColor:'orange',
+    color:'white',
+    cursor:'pointer',
+    transition:'0.5s'
+});
+g14.toggle(null, {
+    border:'8px solid red',
+    color:'red'
+}, {
+    width:'150px',
+    height:'150px',
+    borderRadius:'30px',
+    border:'2px solid black',
+    backgroundColor:'orange',
+    color:'white'
+});
 
 //Toggle Event Callback Function
 const onMouseToggle = function(node, state){alert('Mouse Toggle! / '+node+' / '+state);}
 let g15 = new Gyo.toggleButton('#button-callback-toggle');
 g15.button();
-g15.toggle({},{}, onMouseToggle);
+g15.toggle(onMouseToggle);
 </script>
