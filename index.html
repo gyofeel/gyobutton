@@ -66,7 +66,13 @@
     <button id="button-style-toggle">Toggle Style Custom</button>
 
     <h2>⌾ Toggle Event Callback Function</h2>
-    <button id="button-callback-toggle">Toggle Style Custom</button>
+    <button id="button-callback-toggle">Toggle Event Callback</button>
+
+    <br><hr><br>
+
+    <h2>⌾ Progress Event Callback Function</h2>
+    <button class="button-progress">Toggle Style Custom</button>
+    <button class="button-progress">Toggle Style Custom</button>
 
     <br><br><br>
 </body>
@@ -155,4 +161,14 @@ const onMouseToggle = function(node, state){alert('Mouse Toggle! / '+node+' / '+
 let g15 = new Gyo.toggleButton('#button-callback-toggle');
 g15.button();
 g15.toggle(onMouseToggle);
+
+//Progress Event Callback Function
+let g16 = new Gyo.progressButton('.button-progress');
+g16.button();
+g16.progressInit({
+    form : 'wave',
+    position : 'left',
+    color : 'hotpink',
+    size : '45px'
+});
 </script>

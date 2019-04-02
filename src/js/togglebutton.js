@@ -1,6 +1,7 @@
 import GyoButton from './button';
-import { styleObj, prefixArr } from './style';
-import {createKey} from 'private-parts'
+import {styleObj} from './constants';
+import {setStyle} from './functions';
+import {createKey} from 'private-parts';
 
 let GyoToggleButton = function(){
     'use strict'
@@ -39,15 +40,12 @@ let GyoToggleButton = function(){
             let stateStyle;
             _(that).nodeStateArr[stateIdx][1] = !_(that).nodeStateArr[stateIdx][1];
             if(_(that).nodeStateArr[stateIdx][1]) {
-                stateStyle = Object.entries(styleStateEffect);
+                stateStyle = styleStateEffect;
             } else{
-                stateStyle = Object.entries(styleStateEffectOut);
+                stateStyle = styleStateEffectOut;
+
             }
-            for(let v of stateStyle){
-                this.style[v[0]] = v[1];
-                let temp = v[0][0].toUpperCase() + Array.from(v[0]).splice(1).join('');
-                for(let el of prefixArr) this.style[el+temp] = v[1];
-            }
+            setStyle(this, stateStyle);
             //callback function have value of node element and toggle state of this.
             if(callback) callback(this, _(that).nodeStateArr[stateIdx][1]);
         };
