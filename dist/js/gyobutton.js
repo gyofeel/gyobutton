@@ -9243,10 +9243,6 @@ function Keyframes (config) {
  * MIT License
  */
 
-<<<<<<< HEAD
-var runtime = (function (exports) {
-  "use strict";
-=======
 /*global window, navigator, document, require, process, module */
 (function (app) {
   'use strict';
@@ -9260,7 +9256,6 @@ var runtime = (function (exports) {
       var s = "000000000" + num;
       return s.substr(s.length-size);
     },
->>>>>>> master
 
     randomBlock = function randomBlock() {
       return pad((Math.random() *
@@ -9268,13 +9263,6 @@ var runtime = (function (exports) {
             .toString(base), blockSize);
     },
 
-<<<<<<< HEAD
-  function wrap(innerFn, outerFn, self, tryLocsList) {
-    // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
-    var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
-    var generator = Object.create(protoGenerator.prototype);
-    var context = new Context(tryLocsList || []);
-=======
     safeCounter = function () {
       c = (c < discreteValues) ? c : 0;
       c++; // this is not subliminal
@@ -9290,21 +9278,14 @@ var runtime = (function (exports) {
         // warning: this exposes the exact date and time
         // that the uid was created.
         timestamp = (new Date().getTime()).toString(base),
->>>>>>> master
 
         // Prevent same-machine collisions.
         counter,
 
-<<<<<<< HEAD
-    return generator;
-  }
-  exports.wrap = wrap;
-=======
         // A few chars to generate distinct ids for different
         // clients (so different computers are far less
         // likely to generate the same id)
         fingerprint = api.fingerprint(),
->>>>>>> master
 
         // Grab some more chars from Math.random()
         random = randomBlock() + randomBlock();
@@ -10291,38 +10272,6 @@ var runtime = (function (exports) {
       return ContinueSentinel;
     }
   };
-<<<<<<< HEAD
-
-  // Regardless of whether this script is executing as a CommonJS module
-  // or not, return the runtime object so that we can declare the variable
-  // regeneratorRuntime in the outer scope, which allows this module to be
-  // injected easily by `bin/regenerator --include-runtime script.js`.
-  return exports;
-
-}(
-  // If this script is executing as a CommonJS module, use module.exports
-  // as the regeneratorRuntime namespace. Otherwise create a new empty
-  // object. Either way, the resulting object will be used to initialize
-  // the regeneratorRuntime variable at the top of this file.
-   true ? module.exports : undefined
-));
-
-try {
-  regeneratorRuntime = runtime;
-} catch (accidentalStrictMode) {
-  // This module should not be running in strict mode, so the above
-  // assignment should always work unless something is misconfigured. Just
-  // in case runtime.js accidentally runs in strict mode, we can escape
-  // strict mode using a global Function call. This could conceivably fail
-  // if a Content Security Policy forbids using Function, but in that case
-  // the proper solution is to fix the accidental strict mode problem. If
-  // you've misconfigured your bundler to force strict mode and applied a
-  // CSP to forbid Function, and you're not willing to fix either of those
-  // problems, please detail your unique predicament in a GitHub issue.
-  Function("r", "regeneratorRuntime = r")(runtime);
-}
-=======
->>>>>>> master
 
   // Regardless of whether this script is executing as a CommonJS module
   // or not, return the runtime object so that we can declare the variable
@@ -10409,22 +10358,6 @@ function repeat(str, num) {
     throw new TypeError('expected a string');
   }
 
-<<<<<<< HEAD
-  var privateMethods = {
-    returnComputedStyle: function returnComputedStyle(node, property) {
-      return window.getComputedStyle(node)[property];
-    },
-    initStyle: function initStyle(node, style) {
-      var iStyle = Object.entries(style);
-      var _arr = iStyle;
-
-      for (var _i = 0; _i < _arr.length; _i++) {
-        var v = _arr[_i];
-        node.style[v[0]] = v[1]; //To add vendor-prefix(Cross Browsing)
-        //v[0][0].toUpperCase(): first chracter of property name to capital chracter.
-        //Array.from(v[0]).splice(1).join(''): remove first character
-        // let temp = v[0][1].toUpperCase() + Array.from(v[0]).map((el, i)=>{if(i!==0)return el})
-=======
   // cover common, quick use cases
   if (num === 1) return str;
   if (num === 2) return str + str;
@@ -10436,7 +10369,6 @@ function repeat(str, num) {
   } else if (res.length >= max) {
     return res.substr(0, max);
   }
->>>>>>> master
 
   while (max > res.length && num > 1) {
     if (num & 1) {
