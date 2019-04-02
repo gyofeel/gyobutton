@@ -73,6 +73,10 @@
     <h2>⌾ Progress Event Callback Function</h2>
     <button class="button-progress">Toggle Style Custom</button>
     <button class="button-progress">Toggle Style Custom</button>
+    <button class="button-progress">Toggle Style Custom</button>
+    <button class="button-progress">Toggle Style Custom</button>
+    <button class="button-progress">Toggle Style Custom</button>
+    <button class="button-progress">Toggle Style Custom</button>
 
     <br><br><br>
 </body>
@@ -164,11 +168,23 @@ g15.toggle(onMouseToggle);
 
 //Progress Event Callback Function
 let g16 = new Gyo.progressButton('.button-progress');
-g16.button();
+g16.button({
+    border:'none',
+    color:'white',
+    backgroundColor:'#2980b9'
+});
 g16.progressInit({
     form : 'wave',
-    position : 'left',
+    position : 'top',
     color : 'hotpink',
-    size : '45px'
+    size : '40px'
 });
+g16.addEvent('mouseup',function(e){
+    let temp = e.currentTarget;
+    let random = Math.round(Math.random()*10)
+    setTimeout(()=>{
+    g16.progressEnd(temp,random);
+}, 5000)
+})
+
 </script>

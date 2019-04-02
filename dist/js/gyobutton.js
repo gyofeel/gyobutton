@@ -10580,17 +10580,7 @@ var GyoButton = function () {
   //private
   //Method
 
-  var privateMethods = {
-    initStyle: function initStyle(node, style) {
-      Object(_functions__WEBPACK_IMPORTED_MODULE_1__["setStyle"])(node, style);
-    },
-    addEvent: function addEvent(node, event, callback) {
-      node.addEventListener(event, callback);
-    },
-    removeEvent: function removeEvent(node, event, callback) {
-      node.removeEventListener(event, callback);
-    }
-  };
+  var privateMethods = {};
 
   var _ = Object(private_parts__WEBPACK_IMPORTED_MODULE_2__["createKey"])(privateMethods); //Constructor
 
@@ -10637,17 +10627,11 @@ var GyoButton = function () {
     getNodeArr: function getNodeArr() {
       return _(this).nodeArr;
     },
-    getAddEvent: function getAddEvent() {
-      return _(this).addEvent;
-    },
-    getRemoveEvent: function getRemoveEvent() {
-      return _(this).removeEvent;
-    },
     getStyle: function getStyle() {
       return _(this).style;
     },
     button: function button(initStyleProperty) {
-      _(this).style = initStyleProperty ? initStyleProperty : _constants__WEBPACK_IMPORTED_MODULE_0__["styleObj"].init;
+      _(this).style = initStyleProperty ? initStyleProperty : {};
       var _iteratorNormalCompletion2 = true;
       var _didIteratorError2 = false;
       var _iteratorError2 = undefined;
@@ -10655,8 +10639,8 @@ var GyoButton = function () {
       try {
         for (var _iterator2 = _(this).nodeArr[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
           var node = _step2.value;
-
-          _(this).initStyle(node, _(this).style);
+          Object(_functions__WEBPACK_IMPORTED_MODULE_1__["setStyle"])(node, _constants__WEBPACK_IMPORTED_MODULE_0__["styleObj"].init);
+          Object(_functions__WEBPACK_IMPORTED_MODULE_1__["setStyle"])(node, _(this).style);
         }
       } catch (err) {
         _didIteratorError2 = true;
@@ -10675,7 +10659,7 @@ var GyoButton = function () {
     },
     addEvent: function addEvent(eventName, callback) {
       _(this).callback = function (e) {
-        callback();
+        callback(e);
       };
 
       var _iteratorNormalCompletion3 = true;
@@ -10686,7 +10670,7 @@ var GyoButton = function () {
         for (var _iterator3 = _(this).nodeArr[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
           var node = _step3.value;
 
-          _(this).addEvent(node, eventName, _(this).callback);
+          Object(_functions__WEBPACK_IMPORTED_MODULE_1__["addEvent"])(node, eventName, _(this).callback);
         }
       } catch (err) {
         _didIteratorError3 = true;
@@ -10712,7 +10696,7 @@ var GyoButton = function () {
         for (var _iterator4 = _(this).nodeArr[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
           var node = _step4.value;
 
-          _(this).removeEvent(node, eventName, _(this).callback);
+          Object(_functions__WEBPACK_IMPORTED_MODULE_1__["removeEvent"])(node, eventName, _(this).callback);
         }
       } catch (err) {
         _didIteratorError4 = true;
@@ -10829,12 +10813,12 @@ var returnWavePAE = function returnWavePAE(color, size) {
     transform: 'translate(-50%, -50%)',
     top: '50%',
     left: '50%',
-    // display:'none',
-    display: 'flex',
+    display: 'none',
+    // display : 'flex',
     flexFlow: 'row nowrap',
     justifyContent: 'space-evenly',
     opacity: '0',
-    transition: '0.5s'
+    transition: '0.7s'
   };
   Object(_functions__WEBPACK_IMPORTED_MODULE_0__["setStyle"])(div, divStyle);
 
@@ -10858,10 +10842,7 @@ var returnWavePAE = function returnWavePAE(color, size) {
   }
 
   return div;
-}; //It returns text sign animation.
-
-
-var returnSign = function returnSign(signTxt) {};
+};
 
 var progressAnimationElement = function progressAnimationElement(form, color, size) {
   var pae;
@@ -10884,6 +10865,13 @@ var progressAnimationElement = function progressAnimationElement(form, color, si
 
 var successAnimationElement = function successAnimationElement(size) {
   var sae = document.createElement('div');
+  var sign = document.createElement('span');
+  sign.innerText = 'Success!';
+  Object(_functions__WEBPACK_IMPORTED_MODULE_0__["setStyle"])(sign, {
+    fontSize: '1.5rem',
+    color: 'white'
+  });
+  sae.appendChild(sign);
   var style = {
     padding: '0',
     margin: '0',
@@ -10891,34 +10879,54 @@ var successAnimationElement = function successAnimationElement(size) {
     position: 'absolute',
     top: '0',
     left: '0',
+    borderRadius: '10%',
     width: '100%',
     height: '100%',
-    backgroundColor: 'green',
+    backgroundColor: '#2ecc71',
     zIndex: '10',
-    display: 'none'
+    opacity: '0',
+    // display:'flex',
+    display: 'none',
+    flexFlow: 'row wrap',
+    justifyContent: 'center',
+    alignItems: 'center',
+    transition: '2s'
   };
   Object(_functions__WEBPACK_IMPORTED_MODULE_0__["setStyle"])(sae, style);
-  var successSign = returnSign('Success!');
   return sae;
 };
 
 var failAnimationElement = function failAnimationElement(size) {
   var fae = document.createElement('div');
+  var sign = document.createElement('span');
+  sign.innerText = 'Fail!';
+  Object(_functions__WEBPACK_IMPORTED_MODULE_0__["setStyle"])(sign, {
+    fontSize: '1.5rem',
+    color: 'white'
+  });
+  fae.appendChild(sign);
   var style = {
+    textAlign: 'center',
     padding: '0',
     margin: '0',
     boxSizing: 'border-box',
     position: 'absolute',
     top: '0',
     left: '0',
+    borderRadius: '10%',
     width: '100%',
     height: '100%',
-    backgroundColor: 'red',
+    backgroundColor: '#e74c3c',
     zIndex: '10',
-    display: 'none'
+    opacity: '0',
+    // display:'flex',
+    display: 'none',
+    flexFlow: 'row wrap',
+    justifyContent: 'center',
+    alignItems: 'center',
+    transition: '2s'
   };
   Object(_functions__WEBPACK_IMPORTED_MODULE_0__["setStyle"])(fae, style);
-  var failSign = returnSign('Fail!');
   return fae;
 };
 
@@ -10930,13 +10938,15 @@ var failAnimationElement = function failAnimationElement(size) {
 /*!*****************************!*\
   !*** ./src/js/functions.js ***!
   \*****************************/
-/*! exports provided: setStyle, returnComputedStyle */
+/*! exports provided: setStyle, returnComputedStyle, addEvent, removeEvent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setStyle", function() { return setStyle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "returnComputedStyle", function() { return returnComputedStyle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addEvent", function() { return addEvent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeEvent", function() { return removeEvent; });
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "./src/js/constants.js");
 
 'use strict';
@@ -10980,6 +10990,14 @@ var setStyle = function setStyle(node, style) {
 
 var returnComputedStyle = function returnComputedStyle(node, property) {
   return window.getComputedStyle(node)[property];
+};
+
+var addEvent = function addEvent(node, event, callback) {
+  node.addEventListener(event, callback);
+};
+
+var removeEvent = function removeEvent(node, event, callback) {
+  node.removeEventListener(event, callback);
 };
 
 
@@ -11039,9 +11057,48 @@ var GyoProgressButton = function () {
   //Method
 
   var privateMethods = {
-    success: function success() {},
-    fail: function fail() {},
-    initProgressBtnEl: function initProgressBtnEl(pos, nodeElementsArr) {
+    showResult: function showResult(el, res) {
+      if (res) {
+        Object(_functions__WEBPACK_IMPORTED_MODULE_3__["setStyle"])(el.successEl, {
+          display: 'flex'
+        });
+        setTimeout(function () {
+          Object(_functions__WEBPACK_IMPORTED_MODULE_3__["setStyle"])(el.successEl, {
+            opacity: '1'
+          });
+        }, 1000);
+        setTimeout(function () {
+          Object(_functions__WEBPACK_IMPORTED_MODULE_3__["setStyle"])(el.successEl, {
+            opacity: '0'
+          });
+          setTimeout(function () {
+            Object(_functions__WEBPACK_IMPORTED_MODULE_3__["setStyle"])(el.successEl, {
+              display: 'none'
+            });
+          }, 2000);
+        }, 5000);
+      } else {
+        Object(_functions__WEBPACK_IMPORTED_MODULE_3__["setStyle"])(el.failEl, {
+          display: 'flex'
+        });
+        setTimeout(function () {
+          Object(_functions__WEBPACK_IMPORTED_MODULE_3__["setStyle"])(el.failEl, {
+            opacity: '1'
+          });
+        }, 1000);
+        setTimeout(function () {
+          Object(_functions__WEBPACK_IMPORTED_MODULE_3__["setStyle"])(el.failEl, {
+            opacity: '0'
+          });
+          setTimeout(function () {
+            Object(_functions__WEBPACK_IMPORTED_MODULE_3__["setStyle"])(el.failEl, {
+              display: 'none'
+            });
+          }, 2000);
+        }, 5000);
+      }
+    },
+    initProgressBtnEl: function initProgressBtnEl(nodeElementsArr) {
       var _iteratorNormalCompletion = true;
       var _didIteratorError = false;
       var _iteratorError = undefined;
@@ -11062,44 +11119,7 @@ var GyoProgressButton = function () {
           });
           el.wrap.appendChild(el.successEl);
           el.wrap.appendChild(el.failEl);
-
-          switch (pos) {
-            case 'top':
-              {
-                el.node.insertAdjacentElement('afterend', el.progressEl);
-                el.progressEl.style.top = parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["returnComputedStyle"])(el.node, 'height')) / 7 + 'px';
-                el.progressEl.style.opacity = '1';
-                break;
-              }
-
-            case 'right':
-              {
-                el.node.insertAdjacentElement('afterend', el.progressEl);
-                el.progressEl.style.left = parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["returnComputedStyle"])(el.wrap, 'width')) - parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["returnComputedStyle"])(el.node, 'width')) / 8 + 'px';
-                el.progressEl.style.opacity = '1';
-                break;
-              }
-
-            case 'bottom':
-              {
-                el.node.insertAdjacentElement('afterend', el.progressEl);
-                el.progressEl.style.top = parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["returnComputedStyle"])(el.wrap, 'height')) - parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["returnComputedStyle"])(el.node, 'height')) / 7 + 'px';
-                console.log(el.progressEl.style.top);
-                el.progressEl.style.opacity = '1';
-                break;
-              }
-
-            case 'left':
-              {
-                el.node.insertAdjacentElement('afterend', el.progressEl);
-                el.progressEl.style.left = parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["returnComputedStyle"])(el.node, 'width')) / 8 + 'px';
-                el.progressEl.style.opacity = '1';
-                break;
-              }
-
-            default:
-              break;
-          }
+          el.node.insertAdjacentElement('afterend', el.progressEl);
         }
       } catch (err) {
         _didIteratorError = true;
@@ -11134,44 +11154,122 @@ var GyoProgressButton = function () {
         position = _ref.position,
         color = _ref.color,
         size = _ref.size;
-    var _iteratorNormalCompletion2 = true;
-    var _didIteratorError2 = false;
-    var _iteratorError2 = undefined;
 
-    try {
-      for (var _iterator2 = _(this).nodeArr[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-        var el = _step2.value;
-        _(this).nodeElementsArr = _(this).nodeElementsArr ? _(this).nodeElementsArr : Array.from(_(this).nodeArr).map(function (el) {
-          return {
-            node: el,
-            wrap: document.createElement('div'),
-            progressEl: Object(_elements__WEBPACK_IMPORTED_MODULE_2__["progressAnimationElement"])(form, color, size),
-            successEl: Object(_elements__WEBPACK_IMPORTED_MODULE_2__["successAnimationElement"])(),
-            failEl: Object(_elements__WEBPACK_IMPORTED_MODULE_2__["failAnimationElement"])()
-          };
+    if (!_(this).nodeElementsArr) {
+      var that = this;
+      form = form || 'wave';
+      position = position || 'top';
+      color = color || 'gray';
+      size = size || '30px';
+
+      var callback = function callback(e) {
+        var idx = _(that).nodeElementsArr.findIndex(function (o) {
+          return o.node === e.currentTarget;
         });
-      }
-    } catch (err) {
-      _didIteratorError2 = true;
-      _iteratorError2 = err;
-    } finally {
-      try {
-        if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
-          _iterator2.return();
-        }
-      } finally {
-        if (_didIteratorError2) {
-          throw _iteratorError2;
-        }
-      }
-    }
 
-    _(this).initProgressBtnEl(position, _(this).nodeElementsArr);
+        var element = _(that).nodeElementsArr[idx];
+
+        element.progressEl.style.display = 'flex';
+
+        switch (position) {
+          case 'top':
+            {
+              element.progressEl.style.top = parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["returnComputedStyle"])(element.node, 'height')) / 7 + 'px';
+              break;
+            }
+
+          case 'right':
+            {
+              element.progressEl.style.left = parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["returnComputedStyle"])(element.wrap, 'width')) - parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["returnComputedStyle"])(element.wrap, 'width')) / 8 + 'px';
+              break;
+            }
+
+          case 'bottom':
+            {
+              element.progressEl.style.top = parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["returnComputedStyle"])(element.wrap, 'height')) - parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["returnComputedStyle"])(element.wrap, 'height')) / 7 + 'px';
+              break;
+            }
+
+          case 'left':
+            {
+              element.progressEl.style.left = parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["returnComputedStyle"])(element.node, 'width')) / 8 + 'px';
+              break;
+            }
+
+          case 'center':
+            {
+              break;
+            }
+
+          default:
+            break;
+        }
+
+        element.progressEl.style.opacity = '1';
+      };
+
+      _(this).nodeElementsArr = Array.from(_(this).nodeArr).map(function (el) {
+        return {
+          node: el,
+          wrap: document.createElement('div'),
+          progressEl: Object(_elements__WEBPACK_IMPORTED_MODULE_2__["progressAnimationElement"])(form, color, size),
+          successEl: Object(_elements__WEBPACK_IMPORTED_MODULE_2__["successAnimationElement"])(),
+          failEl: Object(_elements__WEBPACK_IMPORTED_MODULE_2__["failAnimationElement"])()
+        };
+      });
+      var _iteratorNormalCompletion2 = true;
+      var _didIteratorError2 = false;
+      var _iteratorError2 = undefined;
+
+      try {
+        for (var _iterator2 = _(this).nodeElementsArr[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+          var el = _step2.value;
+          Object(_functions__WEBPACK_IMPORTED_MODULE_3__["addEvent"])(el.node, 'click', callback);
+        }
+      } catch (err) {
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
+            _iterator2.return();
+          }
+        } finally {
+          if (_didIteratorError2) {
+            throw _iteratorError2;
+          }
+        }
+      }
+
+      _(this).initProgressBtnEl(_(this).nodeElementsArr);
+    }
   };
 
-  GyoProgressButton.prototype.progressStart = function () {};
+  GyoProgressButton.prototype.getNode = function () {
+    return _(this).nodeArr;
+  };
 
-  GyoProgressButton.prototype.progressEnd = function () {};
+  GyoProgressButton.prototype.progressEnd = function (node, res) {
+    var _this = this;
+
+    console.log(node);
+
+    var idx = _(this).nodeElementsArr.findIndex(function (o) {
+      return o.node === node;
+    });
+
+    console.log(idx);
+    _(this).nodeElementsArr[idx].progressEl.style.left = '50%';
+    _(this).nodeElementsArr[idx].progressEl.style.top = '50%';
+    _(this).nodeElementsArr[idx].progressEl.style.opacity = '0';
+    console.log(parseInt(_(this).nodeElementsArr[idx].progressEl.style.transitionDuration) * 1000);
+    var temp = parseInt(_(this).nodeElementsArr[idx].progressEl.style.transitionDuration);
+    setTimeout(function () {
+      _(_this).nodeElementsArr[idx].progressEl.style.display = 'none';
+    }, temp <= 0 ? 1000 : temp * 1000);
+
+    _(this).showResult(_(this).nodeElementsArr[idx], res);
+  };
 
   return GyoProgressButton;
 }();
@@ -11206,7 +11304,7 @@ var GyoToggleButton = function () {
 
   var privateMethods = {
     initToggle: function initToggle(el, cb) {
-      _(this).addEvent(el[0], 'mouseup', cb);
+      Object(_functions__WEBPACK_IMPORTED_MODULE_2__["addEvent"])(el[0], 'mouseup', cb);
     }
   };
 
@@ -11217,8 +11315,6 @@ var GyoToggleButton = function () {
     _(this).nodeStateArr = Array.from(this.getNodeArr()).map(function (el) {
       return [el, false];
     });
-    _(this).addEvent = this.getAddEvent();
-    _(this).removeEvent = this.getRemoveEvent();
   };
 
   GyoToggleButton.prototype = Object.create(_button__WEBPACK_IMPORTED_MODULE_0__["default"].prototype);
@@ -11237,9 +11333,7 @@ var GyoToggleButton = function () {
       try {
         for (var _iterator = _(this).nodeStateArr[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           var el = _step.value;
-
-          _(this).removeEvent(el[0], 'mouseup', _(this).callback);
-
+          Object(_functions__WEBPACK_IMPORTED_MODULE_2__["removeEvent"])(el[0], 'mouseup', _(this).callback);
           el[1] = false;
         }
       } catch (err) {

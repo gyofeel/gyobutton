@@ -35,12 +35,12 @@ const returnWavePAE = (color, size)=>{
         transform:'translate(-50%, -50%)',
         top:'50%',
         left:'50%',
-        // display:'none',
-        display : 'flex',
+        display:'none',
+        // display : 'flex',
         flexFlow : 'row nowrap',
         justifyContent : 'space-evenly',
         opacity:'0',
-        transition: '0.5s'
+        transition: '0.7s'
     }
     setStyle(div, divStyle);
     for(let i=0;i<style.wBarNum;i++){
@@ -64,11 +64,6 @@ const returnWavePAE = (color, size)=>{
     return div;
 }
 
-//It returns text sign animation.
-const returnSign = function(signTxt){
-
-}
-
 const progressAnimationElement = function(form, color, size){
     let pae;
     switch(form){
@@ -86,6 +81,13 @@ const progressAnimationElement = function(form, color, size){
 
 const successAnimationElement = function(size){
     let sae = document.createElement('div');
+    let sign = document.createElement('span');
+    sign.innerText = 'Success!'
+    setStyle(sign, {
+        fontSize : '1.5rem',
+        color : 'white'
+    });
+    sae.appendChild(sign);
     let style = {
         padding:'0',
         margin:'0',
@@ -93,34 +95,54 @@ const successAnimationElement = function(size){
         position : 'absolute',
         top:'0',
         left:'0',
+        borderRadius:'10%',
         width:'100%',
         height:'100%',
-        backgroundColor:'green',
+        backgroundColor:'#2ecc71',
         zIndex:'10',
-        display:'none'
+        opacity:'0',
+        // display:'flex',
+        display:'none',
+        flexFlow:'row wrap',
+        justifyContent:'center',
+        alignItems:'center',
+        transition:'2s'
     }
     setStyle(sae, style);
-    let successSign = returnSign('Success!');
     return sae;
 }
 
 const failAnimationElement = function(size){
     let fae = document.createElement('div');
+    let sign = document.createElement('span');
+    sign.innerText = 'Fail!'
+    setStyle(sign, {
+        fontSize : '1.5rem',
+        color : 'white'
+    });
+    fae.appendChild(sign);
     let style = {
+        textAlign:'center',
         padding:'0',
         margin:'0',
         boxSizing:'border-box',
         position : 'absolute',
         top:'0',
         left:'0',
+        borderRadius:'10%',
         width:'100%',
         height:'100%',
-        backgroundColor:'red',
+        backgroundColor:'#e74c3c',
         zIndex:'10',
-        display:'none'
+        opacity:'0',
+        // display:'flex',
+        display:'none',
+        flexFlow:'row wrap',
+        justifyContent:'center',
+        alignItems:'center',
+        transition:'2s'
     }
     setStyle(fae, style);
-    let failSign = returnSign('Fail!');
     return fae;
 }
 

@@ -1,5 +1,5 @@
 import {styleObj} from './constants'
-import {setStyle, returnComputedStyle} from './functions';
+import {setStyle, returnComputedStyle, addEvent, removeEvent} from './functions';
 import {createKey} from 'private-parts';
 
 let GyoButton = function(){
@@ -9,15 +9,6 @@ let GyoButton = function(){
     //private
     //Method
     const privateMethods = {
-        initStyle : function(node, style){
-            setStyle(node, style);
-        },
-        addEvent: function(node, event, callback){
-            node.addEventListener(event, callback);
-        },
-        removeEvent: function(node, event, callback){
-            node.removeEventListener(event, callback);
-        }
     };
     let _ = createKey(privateMethods);
 
@@ -43,26 +34,25 @@ let GyoButton = function(){
 
     GyoButton.prototype = {
         getNodeArr : function(){return _(this).nodeArr},
-        getAddEvent : function(){return _(this).addEvent},
-        getRemoveEvent : function(){return _(this).removeEvent},
         getStyle : function(){return _(this).style},
         button : function(initStyleProperty){
-            _(this).style = (initStyleProperty)?initStyleProperty:styleObj.init;
+            _(this).style = (initStyleProperty)?initStyleProperty:{};
             for(let node of _(this).nodeArr ){
-                _(this).initStyle(node, _(this).style);
+                setStyle(node, styleObj.init);
+                setStyle(node, _(this).style);
             }
         },
         addEvent : function(eventName, callback){
             _(this).callback = function(e){
-                callback();
+                callback(e);
             };
             for(let node of _(this).nodeArr){
-                _(this).addEvent(node, eventName, _(this).callback);
+                addEvent(node, eventName, _(this).callback);
             }
         },
         removeEvent : function(eventName, callback){
             for(let node of _(this).nodeArr){
-                _(this).removeEvent(node, eventName, _(this).callback);
+                removeEvent(node, eventName, _(this).callback);
             }
             _(this).callback = null;
         }

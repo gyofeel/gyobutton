@@ -1,6 +1,6 @@
 import GyoButton from './button';
 import {styleObj} from './constants';
-import {setStyle} from './functions';
+import {setStyle, addEvent, removeEvent} from './functions';
 import {createKey} from 'private-parts';
 
 let GyoToggleButton = function(){
@@ -11,15 +11,13 @@ let GyoToggleButton = function(){
     //Method
     const privateMethods = {
         initToggle : function(el, cb){
-            _(this).addEvent(el[0], 'mouseup', cb);
+            addEvent(el[0], 'mouseup', cb);
         }
     };
     let _ = createKey(privateMethods);
     const GyoToggleButton = function(sel){
         GyoButton.call(this, sel);
         _(this).nodeStateArr = Array.from(this.getNodeArr()).map((el)=>[el, false]);
-        _(this).addEvent = this.getAddEvent();
-        _(this).removeEvent = this.getRemoveEvent();
     };
     GyoToggleButton.prototype = Object.create(GyoButton.prototype);
     GyoToggleButton.prototype.constructor = GyoToggleButton;
@@ -30,7 +28,7 @@ let GyoToggleButton = function(){
         const styleStateEffectOut = (stateOutProp)?stateOutProp:styleObj.state_effect_out;
         if(_(this).callback){
             for(let el of _(this).nodeStateArr){
-                _(this).removeEvent(el[0], 'mouseup', _(this).callback);
+                removeEvent(el[0], 'mouseup', _(this).callback);
                 el[1] = false;
             }
         }
