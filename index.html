@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
     <!-- <script type="text/javascript" src="./dist/js/gyobutton.js"></script> -->
     <script type="text/javascript" src="./dist/js/gyobutton.js"></script>
 </head>
+
 <body>
     <h1><u>gyobutton</u> Example</h1>
 
@@ -54,7 +56,8 @@
     <button id="button-event-over">mouseover event</button>
     <button id="button-event-out">mouseout event</button>
 
-    <br><hr><br>
+    <br>
+    <hr><br>
 
     <h2>⌾ Toggle Button</h2>
     <button id="button-toggle">Toggle Button</button>
@@ -68,7 +71,8 @@
     <h2>⌾ Toggle Event Callback Function</h2>
     <button id="button-callback-toggle">Toggle Event Callback</button>
 
-    <br><hr><br>
+    <br>
+    <hr><br>
 
     <h2>⌾ Progress Event Callback Function</h2>
     <button class="button-progress">Toggle Style Custom</button>
@@ -80,112 +84,121 @@
 
     <br><br><br>
 </body>
+
 </html>
 <script type="text/javascript">
-//Default Button
-let g1 = new Gyo.button('#button-default');
-g1.button();
+    //Default Button
+    let g1 = new Gyo.button('#button-default');
+    g1.button();
 
-//Button Sytle Customizing
-let g2 = new Gyo.button('#button-style');
-g2.button({
-    width:'200px',
-    height:'100px',
-    borderRadius:'50px',
-    boder:'none',
-    color:'white',
-    backgroundColor:'orange'
-});
+    //Button Sytle Customizing
+    let g2 = new Gyo.button('#button-style');
+    g2.button({
+        width: '200px',
+        height: '100px',
+        borderRadius: '50px',
+        boder: 'none',
+        color: 'white',
+        backgroundColor: 'orange'
+    });
 
-//Button from Varius Elements
-let g3 = new Gyo.button('#button-button');
-g3.button();
-let g4 = new Gyo.button('#button-div');
-g4.button();
-let g5 = new Gyo.button('#button-section');
-g5.button();
+    //Button from Varius Elements
+    let g3 = new Gyo.button('#button-button');
+    g3.button();
+    let g4 = new Gyo.button('#button-div');
+    g4.button();
+    let g5 = new Gyo.button('#button-section');
+    g5.button();
 
-//Get Elements
-let g6 = new Gyo.button('#button-id');
-g6.button();
-let g7 = new Gyo.button('.button-class');
-g7.button();
-let g8 = new Gyo.button('#selector>button');
-g8.button();
+    //Get Elements
+    let g6 = new Gyo.button('#button-id');
+    g6.button();
+    let g7 = new Gyo.button('.button-class');
+    g7.button();
+    let g8 = new Gyo.button('#selector>button');
+    g8.button();
 
-//Add Event Listener
-const onMouseDown = function(){alert('Mouse Down!');}
-const onMouseUp = function(){alert('Mouse Up!');}
-const onMouseOver = function(){alert('Mouse Over!');}
-const onMouseOut = function(){alert('Mouse Out!');}
-let g9 = new Gyo.button('#button-event-down');
-let g10 = new Gyo.button('#button-event-up');
-let g11 = new Gyo.button('#button-event-over');
-let g12 = new Gyo.button('#button-event-out');
-g9.button();
-g10.button();
-g11.button();
-g12.button();
-g9.addEvent('mousedown', onMouseDown);
-g10.addEvent('mouseup', onMouseUp);
-g11.addEvent('mouseover',onMouseOver);
-g12.addEvent('mouseout',onMouseOut);
+    //Add Event Listener
+    const onMouseDown = function () {
+        alert('Mouse Down!');
+    }
+    const onMouseUp = function () {
+        alert('Mouse Up!');
+    }
+    const onMouseOver = function () {
+        alert('Mouse Over!');
+    }
+    const onMouseOut = function () {
+        alert('Mouse Out!');
+    }
+    let g9 = new Gyo.button('#button-event-down');
+    let g10 = new Gyo.button('#button-event-up');
+    let g11 = new Gyo.button('#button-event-over');
+    let g12 = new Gyo.button('#button-event-out');
+    g9.button();
+    g10.button();
+    g11.button();
+    g12.button();
+    g9.addEvent('mousedown', onMouseDown);
+    g10.addEvent('mouseup', onMouseUp);
+    g11.addEvent('mouseover', onMouseOver);
+    g12.addEvent('mouseout', onMouseOut);
 
-//Toggle Button
-let g13 = new Gyo.toggleButton('#button-toggle');
-g13.button();
-g13.toggle();
+    //Toggle Button
+    let g13 = new Gyo.toggleButton('#button-toggle');
+    g13.button();
+    g13.toggle();
 
-//Toggle Style Customizing
-let g14 = new Gyo.toggleButton('#button-style-toggle');
-g14.button({
-    width:'150px',
-    height:'150px',
-    borderRadius:'30px',
-    border:'2px solid black',
-    backgroundColor:'orange',
-    color:'white',
-    cursor:'pointer',
-    transition:'0.5s'
-});
-g14.toggle(null, {
-    border:'8px solid red',
-    color:'red'
-}, {
-    width:'150px',
-    height:'150px',
-    borderRadius:'30px',
-    border:'2px solid black',
-    backgroundColor:'orange',
-    color:'white'
-});
+    //Toggle Style Customizing
+    let g14 = new Gyo.toggleButton('#button-style-toggle');
+    g14.button({
+        width: '150px',
+        height: '150px',
+        borderRadius: '30px',
+        border: '2px solid black',
+        backgroundColor: 'orange',
+        color: 'white',
+        cursor: 'pointer',
+        transition: '0.5s'
+    });
+    g14.toggle(null, {
+        border: '8px solid red',
+        color: 'red'
+    }, {
+        width: '150px',
+        height: '150px',
+        borderRadius: '30px',
+        border: '2px solid black',
+        backgroundColor: 'orange',
+        color: 'white'
+    });
 
-//Toggle Event Callback Function
-const onMouseToggle = function(node, state){alert('Mouse Toggle! / '+node+' / '+state);}
-let g15 = new Gyo.toggleButton('#button-callback-toggle');
-g15.button();
-g15.toggle(onMouseToggle);
+    //Toggle Event Callback Function
+    const onMouseToggle = function (node, state) {
+        alert('Mouse Toggle! / ' + node + ' / ' + state);
+    }
+    let g15 = new Gyo.toggleButton('#button-callback-toggle');
+    g15.button();
+    g15.toggle(onMouseToggle);
 
-//Progress Event Callback Function
-let g16 = new Gyo.progressButton('.button-progress');
-g16.button({
-    border:'none',
-    color:'white',
-    backgroundColor:'#6c5ce7'
-});
-g16.progressInit({
-    form : 'wave',
-    position : 'top',
-    color : 'hotpink',
-    size : '40px'
-});
-g16.addEvent('mouseup',function(e){
-    let temp = e.currentTarget;
-    let res = (Math.random()*10>=3)?true:false;
-    console.log(res)
-    setTimeout(()=>{
-    g16.progressEnd(temp,res);
-}, 5000)
-})
-
+    //Progress Event Callback Function
+    let g16 = new Gyo.progressButton('.button-progress');
+    g16.button({
+        border: 'none',
+        color: 'white',
+        backgroundColor: '#6c5ce7'
+    });
+    g16.progressInit({
+        form: 'wave',
+        position: 'top',
+        color: 'hotpink',
+        size: '40px'
+    });
+    g16.addEvent('mouseup', function (e) {
+        let temp = e.currentTarget;
+        let res = (Math.random() * 10 >= 3) ? true : false
+        setTimeout(() => {
+            g16.progressEnd(temp, res);
+        }, 5000)
+    })
 </script>
