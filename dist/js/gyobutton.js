@@ -11254,17 +11254,13 @@ var GyoProgressButton = function () {
   GyoProgressButton.prototype.progressEnd = function (node, res) {
     var _this = this;
 
-    console.log(node);
-
     var idx = _(this).nodeElementsArr.findIndex(function (o) {
       return o.node === node;
     });
 
-    console.log(idx);
     _(this).nodeElementsArr[idx].progressEl.style.left = '50%';
     _(this).nodeElementsArr[idx].progressEl.style.top = '50%';
     _(this).nodeElementsArr[idx].progressEl.style.opacity = '0';
-    console.log(parseInt(_(this).nodeElementsArr[idx].progressEl.style.transitionDuration) * 1000);
     var temp = parseInt(_(this).nodeElementsArr[idx].progressEl.style.transitionDuration);
     setTimeout(function () {
       _(_this).nodeElementsArr[idx].progressEl.style.display = 'none';

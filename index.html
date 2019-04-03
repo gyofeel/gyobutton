@@ -171,7 +171,7 @@ let g16 = new Gyo.progressButton('.button-progress');
 g16.button({
     border:'none',
     color:'white',
-    backgroundColor:'#2980b9'
+    backgroundColor:'#6c5ce7'
 });
 g16.progressInit({
     form : 'wave',
@@ -181,9 +181,10 @@ g16.progressInit({
 });
 g16.addEvent('mouseup',function(e){
     let temp = e.currentTarget;
-    let random = Math.round(Math.random()*10)
+    let res = (Math.random()*10>=3)?true:false;
+    console.log(res)
     setTimeout(()=>{
-    g16.progressEnd(temp,random);
+    g16.progressEnd(temp,res);
 }, 5000)
 })
 
