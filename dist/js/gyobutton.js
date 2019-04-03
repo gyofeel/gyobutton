@@ -10567,10 +10567,10 @@ module.exports = g;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "./src/js/constants.js");
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./functions */ "./src/js/functions.js");
-/* harmony import */ var private_parts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! private-parts */ "./node_modules/private-parts/index.js");
-/* harmony import */ var private_parts__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(private_parts__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var private_parts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! private-parts */ "./node_modules/private-parts/index.js");
+/* harmony import */ var private_parts__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(private_parts__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants */ "./src/js/constants.js");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./functions */ "./src/js/functions.js");
 
 
 
@@ -10582,7 +10582,7 @@ var GyoButton = function () {
 
   var privateMethods = {};
 
-  var _ = Object(private_parts__WEBPACK_IMPORTED_MODULE_2__["createKey"])(privateMethods); //Constructor
+  var _ = Object(private_parts__WEBPACK_IMPORTED_MODULE_0__["createKey"])(privateMethods); //Constructor
 
 
   var GyoButton = function GyoButton(sel) {
@@ -10598,7 +10598,7 @@ var GyoButton = function () {
           try {
             for (var _iterator = _(this).nodeArr[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
               var v = _step.value;
-              var temp = Object(_functions__WEBPACK_IMPORTED_MODULE_1__["returnComputedStyle"])(v, 'display');
+              var temp = Object(_functions__WEBPACK_IMPORTED_MODULE_2__["returnComputedStyle"])(v, 'display');
               if (temp !== 'inline-block' && temp !== 'block') throw new Error("Not supported display value of element : ".concat(temp));
             }
           } catch (err) {
@@ -10639,8 +10639,8 @@ var GyoButton = function () {
       try {
         for (var _iterator2 = _(this).nodeArr[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
           var node = _step2.value;
-          Object(_functions__WEBPACK_IMPORTED_MODULE_1__["setStyle"])(node, _constants__WEBPACK_IMPORTED_MODULE_0__["styleObj"].init);
-          Object(_functions__WEBPACK_IMPORTED_MODULE_1__["setStyle"])(node, _(this).style);
+          Object(_functions__WEBPACK_IMPORTED_MODULE_2__["setStyle"])(node, _constants__WEBPACK_IMPORTED_MODULE_1__["styleObj"].init);
+          Object(_functions__WEBPACK_IMPORTED_MODULE_2__["setStyle"])(node, _(this).style);
         }
       } catch (err) {
         _didIteratorError2 = true;
@@ -10670,7 +10670,7 @@ var GyoButton = function () {
         for (var _iterator3 = _(this).nodeArr[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
           var node = _step3.value;
 
-          Object(_functions__WEBPACK_IMPORTED_MODULE_1__["addEvent"])(node, eventName, _(this).callback);
+          Object(_functions__WEBPACK_IMPORTED_MODULE_2__["addEvent"])(node, eventName, _(this).callback);
         }
       } catch (err) {
         _didIteratorError3 = true;
@@ -10696,7 +10696,7 @@ var GyoButton = function () {
         for (var _iterator4 = _(this).nodeArr[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
           var node = _step4.value;
 
-          Object(_functions__WEBPACK_IMPORTED_MODULE_1__["removeEvent"])(node, eventName, _(this).callback);
+          Object(_functions__WEBPACK_IMPORTED_MODULE_2__["removeEvent"])(node, eventName, _(this).callback);
         }
       } catch (err) {
         _didIteratorError4 = true;
@@ -10958,9 +10958,9 @@ var setStyle = function setStyle(node, style) {
 
   for (var _i = 0; _i < _arr.length; _i++) {
     var v = _arr[_i];
-    node.style[v[0]] = v[1]; //To add vendor-prefix(Cross Browsing)
-    //v[0][0].toUpperCase(): first chracter of property name to capital chracter.
-    //Array.from(v[0]).splice(1).join(''): remove first character
+    node.style[v[0]] = v[1]; // To add vendor-prefix(Cross Browsing)
+    // v[0][0].toUpperCase(): first chracter of property name to capital chracter.
+    // Array.from(v[0]).splice(1).join(''): remove first character
     // let temp = v[0][1].toUpperCase() + Array.from(v[0]).map((el, i)=>{if(i!==0)return el})
 
     var temp = v[0][0].toUpperCase() + Array.from(v[0]).splice(1).join('');
@@ -11042,12 +11042,10 @@ Gyo.noConflict = _utils__WEBPACK_IMPORTED_MODULE_3__["noConflict"];
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./button */ "./src/js/button.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants */ "./src/js/constants.js");
-/* harmony import */ var _elements__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./elements */ "./src/js/elements.js");
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./functions */ "./src/js/functions.js");
-/* harmony import */ var private_parts__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! private-parts */ "./node_modules/private-parts/index.js");
-/* harmony import */ var private_parts__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(private_parts__WEBPACK_IMPORTED_MODULE_4__);
-
+/* harmony import */ var _elements__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./elements */ "./src/js/elements.js");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./functions */ "./src/js/functions.js");
+/* harmony import */ var private_parts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! private-parts */ "./node_modules/private-parts/index.js");
+/* harmony import */ var private_parts__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(private_parts__WEBPACK_IMPORTED_MODULE_3__);
 
 
 
@@ -11061,39 +11059,39 @@ var GyoProgressButton = function () {
   var privateMethods = {
     showResult: function showResult(el, res) {
       if (res) {
-        Object(_functions__WEBPACK_IMPORTED_MODULE_3__["setStyle"])(el.successEl, {
+        Object(_functions__WEBPACK_IMPORTED_MODULE_2__["setStyle"])(el.successEl, {
           display: 'flex'
         });
         setTimeout(function () {
-          Object(_functions__WEBPACK_IMPORTED_MODULE_3__["setStyle"])(el.successEl, {
+          Object(_functions__WEBPACK_IMPORTED_MODULE_2__["setStyle"])(el.successEl, {
             opacity: '1'
           });
         }, 1000);
         setTimeout(function () {
-          Object(_functions__WEBPACK_IMPORTED_MODULE_3__["setStyle"])(el.successEl, {
+          Object(_functions__WEBPACK_IMPORTED_MODULE_2__["setStyle"])(el.successEl, {
             opacity: '0'
           });
           setTimeout(function () {
-            Object(_functions__WEBPACK_IMPORTED_MODULE_3__["setStyle"])(el.successEl, {
+            Object(_functions__WEBPACK_IMPORTED_MODULE_2__["setStyle"])(el.successEl, {
               display: 'none'
             });
           }, 2000);
         }, 5000);
       } else {
-        Object(_functions__WEBPACK_IMPORTED_MODULE_3__["setStyle"])(el.failEl, {
+        Object(_functions__WEBPACK_IMPORTED_MODULE_2__["setStyle"])(el.failEl, {
           display: 'flex'
         });
         setTimeout(function () {
-          Object(_functions__WEBPACK_IMPORTED_MODULE_3__["setStyle"])(el.failEl, {
+          Object(_functions__WEBPACK_IMPORTED_MODULE_2__["setStyle"])(el.failEl, {
             opacity: '1'
           });
         }, 1000);
         setTimeout(function () {
-          Object(_functions__WEBPACK_IMPORTED_MODULE_3__["setStyle"])(el.failEl, {
+          Object(_functions__WEBPACK_IMPORTED_MODULE_2__["setStyle"])(el.failEl, {
             opacity: '0'
           });
           setTimeout(function () {
-            Object(_functions__WEBPACK_IMPORTED_MODULE_3__["setStyle"])(el.failEl, {
+            Object(_functions__WEBPACK_IMPORTED_MODULE_2__["setStyle"])(el.failEl, {
               display: 'none'
             });
           }, 2000);
@@ -11110,7 +11108,7 @@ var GyoProgressButton = function () {
           var el = _step.value;
           el.node.insertAdjacentElement('beforebegin', el.wrap);
           el.wrap.appendChild(el.node);
-          Object(_functions__WEBPACK_IMPORTED_MODULE_3__["setStyle"])(el.wrap, {
+          Object(_functions__WEBPACK_IMPORTED_MODULE_2__["setStyle"])(el.wrap, {
             margin: '0',
             padding: '0',
             position: 'relative',
@@ -11140,7 +11138,7 @@ var GyoProgressButton = function () {
     }
   };
 
-  var _ = Object(private_parts__WEBPACK_IMPORTED_MODULE_4__["createKey"])(privateMethods);
+  var _ = Object(private_parts__WEBPACK_IMPORTED_MODULE_3__["createKey"])(privateMethods);
 
   var GyoProgressButton = function GyoProgressButton(sel) {
     _button__WEBPACK_IMPORTED_MODULE_0__["default"].call(this, sel);
@@ -11176,25 +11174,25 @@ var GyoProgressButton = function () {
         switch (position) {
           case 'top':
             {
-              element.progressEl.style.top = parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["returnComputedStyle"])(element.node, 'height')) / 7 + 'px';
+              element.progressEl.style.top = parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_2__["returnComputedStyle"])(element.node, 'height')) / 7 + 'px';
               break;
             }
 
           case 'right':
             {
-              element.progressEl.style.left = parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["returnComputedStyle"])(element.wrap, 'width')) - parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["returnComputedStyle"])(element.wrap, 'width')) / 8 + 'px';
+              element.progressEl.style.left = parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_2__["returnComputedStyle"])(element.wrap, 'width')) - parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_2__["returnComputedStyle"])(element.wrap, 'width')) / 8 + 'px';
               break;
             }
 
           case 'bottom':
             {
-              element.progressEl.style.top = parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["returnComputedStyle"])(element.wrap, 'height')) - parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["returnComputedStyle"])(element.wrap, 'height')) / 7 + 'px';
+              element.progressEl.style.top = parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_2__["returnComputedStyle"])(element.wrap, 'height')) - parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_2__["returnComputedStyle"])(element.wrap, 'height')) / 7 + 'px';
               break;
             }
 
           case 'left':
             {
-              element.progressEl.style.left = parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["returnComputedStyle"])(element.node, 'width')) / 8 + 'px';
+              element.progressEl.style.left = parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_2__["returnComputedStyle"])(element.node, 'width')) / 8 + 'px';
               break;
             }
 
@@ -11214,9 +11212,9 @@ var GyoProgressButton = function () {
         return {
           node: el,
           wrap: document.createElement('div'),
-          progressEl: Object(_elements__WEBPACK_IMPORTED_MODULE_2__["progressAnimationElement"])(form, color, size),
-          successEl: Object(_elements__WEBPACK_IMPORTED_MODULE_2__["successAnimationElement"])(),
-          failEl: Object(_elements__WEBPACK_IMPORTED_MODULE_2__["failAnimationElement"])()
+          progressEl: Object(_elements__WEBPACK_IMPORTED_MODULE_1__["progressAnimationElement"])(form, color, size),
+          successEl: Object(_elements__WEBPACK_IMPORTED_MODULE_1__["successAnimationElement"])(),
+          failEl: Object(_elements__WEBPACK_IMPORTED_MODULE_1__["failAnimationElement"])()
         };
       });
       var _iteratorNormalCompletion2 = true;
@@ -11226,7 +11224,7 @@ var GyoProgressButton = function () {
       try {
         for (var _iterator2 = _(this).nodeElementsArr[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
           var el = _step2.value;
-          Object(_functions__WEBPACK_IMPORTED_MODULE_3__["addEvent"])(el.node, 'click', callback);
+          Object(_functions__WEBPACK_IMPORTED_MODULE_2__["addEvent"])(el.node, 'click', callback);
         }
       } catch (err) {
         _didIteratorError2 = true;
@@ -11254,17 +11252,13 @@ var GyoProgressButton = function () {
   GyoProgressButton.prototype.progressEnd = function (node, res) {
     var _this = this;
 
-    console.log(node);
-
     var idx = _(this).nodeElementsArr.findIndex(function (o) {
       return o.node === node;
     });
 
-    console.log(idx);
     _(this).nodeElementsArr[idx].progressEl.style.left = '50%';
     _(this).nodeElementsArr[idx].progressEl.style.top = '50%';
     _(this).nodeElementsArr[idx].progressEl.style.opacity = '0';
-    console.log(parseInt(_(this).nodeElementsArr[idx].progressEl.style.transitionDuration) * 1000);
     var temp = parseInt(_(this).nodeElementsArr[idx].progressEl.style.transitionDuration);
     setTimeout(function () {
       _(_this).nodeElementsArr[idx].progressEl.style.display = 'none';

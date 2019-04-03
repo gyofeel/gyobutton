@@ -1,7 +1,9 @@
-button, div, section{
-    margin:15px;
+button,
+div,
+section {
+    margin: 15px;
 }
 
-body{
-    background-color:beige
+body {
+    background-color: beige
 }

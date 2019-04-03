@@ -2,7 +2,9 @@ import GyoButton from './button';
 import GyoToggleButton from './togglebutton';
 import GyoProgressButton from './progressbutton';
 
-import {noConflict} from './utils'
+import {
+    noConflict
+} from './utils'
 
 let Gyo;
 window.Gyo = Gyo = Gyo || {};
