@@ -10567,130 +10567,124 @@ module.exports = g;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var private_parts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! private-parts */ "./node_modules/private-parts/index.js");
-/* harmony import */ var private_parts__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(private_parts__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants */ "./src/js/constants.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "./src/js/constants.js");
+
+'use strict'; //GyoButton
+//private
+//Variable
 
 
+var selector, nodeArr, style, callback; //Method
 
-var GyoButton = function () {
-  'use strict'; //GyoButton
-  //private
-  //Method
+var _private = {
+  setStyle: function setStyle(node, style) {
+    var _style = Object.entries(style);
 
-  var privateMethods = {
-    setStyle: function setStyle(node, style) {
-      var _style = Object.entries(style);
+    var _arr = _style;
 
-      var _arr = _style;
+    for (var _i = 0; _i < _arr.length; _i++) {
+      var v = _arr[_i];
+      node.style[v[0]] = v[1]; // To add vendor-prefix(Cross Browsing)
+      // v[0][0].toUpperCase(): first chracter of property name to capital chracter.
+      // Array.from(v[0]).splice(1).join(''): remove first character
+      // let temp = v[0][1].toUpperCase() + Array.from(v[0]).map((el, i)=>{if(i!==0)return el})
 
-      for (var _i = 0; _i < _arr.length; _i++) {
-        var v = _arr[_i];
-        node.style[v[0]] = v[1]; // To add vendor-prefix(Cross Browsing)
-        // v[0][0].toUpperCase(): first chracter of property name to capital chracter.
-        // Array.from(v[0]).splice(1).join(''): remove first character
-        // let temp = v[0][1].toUpperCase() + Array.from(v[0]).map((el, i)=>{if(i!==0)return el})
+      var temp = v[0][0].toUpperCase() + Array.from(v[0]).splice(1).join('');
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
 
-        var temp = v[0][0].toUpperCase() + Array.from(v[0]).splice(1).join('');
-        var _iteratorNormalCompletion = true;
-        var _didIteratorError = false;
-        var _iteratorError = undefined;
+      try {
+        for (var _iterator = _constants__WEBPACK_IMPORTED_MODULE_0__["prefixArr"][Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var el = _step.value;
+          node.style[el + temp] = v[1];
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return != null) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+    }
+  },
+  returnComputedStyle: function returnComputedStyle(node, property) {
+    return window.getComputedStyle(node)[property];
+  },
+  addEvent: function addEvent(node, event, callback) {
+    node.addEventListener(event, callback);
+  },
+  removeEvent: function removeEvent(node, event, callback) {
+    node.removeEventListener(event, callback);
+  }
+}; //Constructor
+
+var GyoButton = function GyoButton(sel) {
+  try {
+    if (sel && typeof sel === 'string') {
+      selector = sel;
+      nodeArr = document.querySelectorAll(selector);
+      if (!nodeArr || nodeArr.length === 0) throw new Error("Didn't find any element-node from this arguments : \"".concat(selector, "\""));else {
+        var _iteratorNormalCompletion2 = true;
+        var _didIteratorError2 = false;
+        var _iteratorError2 = undefined;
 
         try {
-          for (var _iterator = _constants__WEBPACK_IMPORTED_MODULE_1__["prefixArr"][Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-            var el = _step.value;
-            node.style[el + temp] = v[1];
+          for (var _iterator2 = nodeArr[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+            var v = _step2.value;
+
+            var temp = _private.returnComputedStyle(v, 'display');
+
+            if (temp !== 'inline-block' && temp !== 'block') throw new Error("Not supported display value of element : ".concat(temp));
           }
         } catch (err) {
-          _didIteratorError = true;
-          _iteratorError = err;
+          _didIteratorError2 = true;
+          _iteratorError2 = err;
         } finally {
           try {
-            if (!_iteratorNormalCompletion && _iterator.return != null) {
-              _iterator.return();
+            if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
+              _iterator2.return();
             }
           } finally {
-            if (_didIteratorError) {
-              throw _iteratorError;
+            if (_didIteratorError2) {
+              throw _iteratorError2;
             }
           }
         }
       }
-    },
-    returnComputedStyle: function returnComputedStyle(node, property) {
-      return window.getComputedStyle(node)[property];
-    },
-    addEvent: function addEvent(node, event, callback) {
-      node.addEventListener(event, callback);
-    },
-    removeEvent: function removeEvent(node, event, callback) {
-      node.removeEventListener(event, callback);
-    }
-  };
+    } else throw new Error('Arguments Error');
+  } catch (e) {
+    console.error(e);
+    return;
+  }
 
-  var _ = Object(private_parts__WEBPACK_IMPORTED_MODULE_0__["createKey"])(privateMethods); //Constructor
-
-
-  var GyoButton = function GyoButton(sel) {
-    try {
-      if (sel && typeof sel === 'string') {
-        _(this).selector = sel;
-        _(this).nodeArr = document.querySelectorAll(_(this).selector);
-        if (!_(this).nodeArr || _(this).nodeArr.length === 0) throw new Error("Didn't find any element-node from this arguments : \"".concat(_(this).selector, "\""));else {
-          var _iteratorNormalCompletion2 = true;
-          var _didIteratorError2 = false;
-          var _iteratorError2 = undefined;
-
-          try {
-            for (var _iterator2 = _(this).nodeArr[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-              var v = _step2.value;
-
-              var temp = _(this).returnComputedStyle(v, 'display');
-
-              if (temp !== 'inline-block' && temp !== 'block') throw new Error("Not supported display value of element : ".concat(temp));
-            }
-          } catch (err) {
-            _didIteratorError2 = true;
-            _iteratorError2 = err;
-          } finally {
-            try {
-              if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
-                _iterator2.return();
-              }
-            } finally {
-              if (_didIteratorError2) {
-                throw _iteratorError2;
-              }
-            }
-          }
-        }
-      } else throw new Error('Arguments Error');
-    } catch (e) {
-      console.error(e);
-      return;
-    }
-  };
-
-  GyoButton.prototype = {
+  return {
     getNodeArr: function getNodeArr() {
-      return _(this).nodeArr;
+      return nodeArr;
     },
     getStyle: function getStyle() {
-      return _(this).style;
+      return style;
     },
     button: function button(initStyleProperty) {
-      _(this).style = initStyleProperty ? initStyleProperty : {};
+      style = initStyleProperty ? initStyleProperty : {};
       var _iteratorNormalCompletion3 = true;
       var _didIteratorError3 = false;
       var _iteratorError3 = undefined;
 
       try {
-        for (var _iterator3 = _(this).nodeArr[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+        for (var _iterator3 = nodeArr[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
           var node = _step3.value;
 
-          _(this).setStyle(node, _constants__WEBPACK_IMPORTED_MODULE_1__["styleObj"].init);
+          _private.setStyle(node, _constants__WEBPACK_IMPORTED_MODULE_0__["styleObj"].init);
 
-          _(this).setStyle(node, _(this).style);
+          _private.setStyle(node, style);
         }
       } catch (err) {
         _didIteratorError3 = true;
@@ -10707,9 +10701,9 @@ var GyoButton = function () {
         }
       }
     },
-    addEvent: function addEvent(eventName, callback) {
-      _(this).callback = function (e) {
-        callback(e);
+    addEvent: function addEvent(eventName, _callback) {
+      _callback = function callback(e) {
+        _callback(e);
       };
 
       var _iteratorNormalCompletion4 = true;
@@ -10717,10 +10711,10 @@ var GyoButton = function () {
       var _iteratorError4 = undefined;
 
       try {
-        for (var _iterator4 = _(this).nodeArr[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+        for (var _iterator4 = nodeArr[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
           var node = _step4.value;
 
-          _(this).addEvent(node, eventName, _(this).callback);
+          _private.addEvent(node, eventName, _callback);
         }
       } catch (err) {
         _didIteratorError4 = true;
@@ -10743,10 +10737,10 @@ var GyoButton = function () {
       var _iteratorError5 = undefined;
 
       try {
-        for (var _iterator5 = _(this).nodeArr[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+        for (var _iterator5 = nodeArr[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
           var node = _step5.value;
 
-          _(this).removeEvent(node, eventName, _(this).callback);
+          _private.removeEvent(node, eventName, callback);
         }
       } catch (err) {
         _didIteratorError5 = true;
@@ -10763,11 +10757,10 @@ var GyoButton = function () {
         }
       }
 
-      _(this).callback = null;
+      callback = null;
     }
   };
-  return GyoButton;
-}();
+};
 
 /* harmony default export */ __webpack_exports__["default"] = (GyoButton);
 
