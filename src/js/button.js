@@ -35,6 +35,7 @@ let GyoButton = function (sel) {
 
     return {
         getNodeArr: () => nodeArr,
+        getStyle: () => style,
         button: function (initStyleProperty) {
             style = (initStyleProperty) ? initStyleProperty : {};
             for (let node of nodeArr) {

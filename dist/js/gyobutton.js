@@ -9494,80 +9494,6 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 /***/ }),
 
-/***/ "./node_modules/private-parts/index.js":
-/*!*********************************************!*\
-  !*** ./node_modules/private-parts/index.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * A function that returns a function that allows you to associate
- * a public object with its private counterpart.
- * @param {Function|Object} factory An optional argument that, is present, will
- *   be used to create new objects in the store.
- *   If factory is a function, it will be invoked with the key as an argument
- *   and the return value will be the private instance.
- *   If factory is an object, the private instance will be a new object with
- *   factory as it's prototype.
- */
-function createKey(factory){
-
-  // Create the factory based on the type of object passed.
-  factory = typeof factory == 'function'
-    ? factory
-    : createBound(factory);
-
-  // Store is used to map public objects to private objects.
-  var store = new WeakMap();
-
-  // Seen is used to track existing private objects.
-  var seen = new WeakMap();
-
-  /**
-   * An accessor function to get private instances from the store.
-   * @param {Object} key The public object that is associated with a private
-   *   object in the store.
-   */
-  return function(key) {
-    if (typeof key != 'object') return;
-
-    var value = store.get(key);
-    if (!value) {
-      // Make sure key isn't already the private instance of some existing key.
-      // This check helps prevent accidental double privatizing.
-      if (seen.has(key)) {
-        value = key;
-      } else {
-        value = factory(key);
-        store.set(key, value);
-        seen.set(value, true);
-      }
-    }
-    return value;
-  };
-}
-
-/**
- * Function.prototype.bind doesn't work in PhantomJS or Safari 5.1,
- * so we have to manually bind until support is dropped.
- * This function is effectively `Object.create.bind(null, obj, {})`
- * @param {Object} obj The first bound parameter to `Object.create`
- * @return {Function} The bound function.
- */
-function createBound(obj) {
-  return function() {
-    return Object.create(obj || Object.prototype);
-  };
-}
-
-module.exports = {
-  createKey: createKey
-};
-
-
-/***/ }),
-
 /***/ "./node_modules/regenerator-runtime/runtime.js":
 /*!*****************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime.js ***!
@@ -10620,6 +10546,9 @@ var GyoButton = function GyoButton(sel) {
     getNodeArr: function getNodeArr() {
       return nodeArr;
     },
+    getStyle: function getStyle() {
+      return style;
+    },
     button: function button(initStyleProperty) {
       style = initStyleProperty ? initStyleProperty : {};
       var _iteratorNormalCompletion2 = true;
@@ -11004,8 +10933,8 @@ __webpack_require__.r(__webpack_exports__);
 var Gyo;
 window.Gyo = Gyo = Gyo || {};
 Gyo.button = _button__WEBPACK_IMPORTED_MODULE_0__["default"];
-Gyo.toggleButton = _togglebutton__WEBPACK_IMPORTED_MODULE_1__["default"]; // Gyo.progressButton = GyoProgressButton;
-
+Gyo.toggleButton = _togglebutton__WEBPACK_IMPORTED_MODULE_1__["default"];
+Gyo.progressButton = _progressbutton__WEBPACK_IMPORTED_MODULE_2__["default"];
 Gyo.noConflict = _utils__WEBPACK_IMPORTED_MODULE_3__["noConflict"];
 
 /***/ }),
@@ -11022,19 +10951,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./button */ "./src/js/button.js");
 /* harmony import */ var _elements__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./elements */ "./src/js/elements.js");
 /* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./functions */ "./src/js/functions.js");
-/* harmony import */ var private_parts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! private-parts */ "./node_modules/private-parts/index.js");
-/* harmony import */ var private_parts__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(private_parts__WEBPACK_IMPORTED_MODULE_3__);
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
 
+'use strict';
 
-var GyoProgressButton = function () {
-  'use strict'; //GyoProgressButton
+var GyoProgressButton = function GyoProgressButton(sel) {
+  //GyoProgressButton
   //Private Member
-  //Method
+  //Variables
+  var _this = _button__WEBPACK_IMPORTED_MODULE_0__["default"].call(this, sel);
 
-  var privateMethods = {
+  var nodeElementsArr;
+
+  var nodeArr = _this.getNodeArr(); //Methods
+
+
+  var _private = {
     showResult: function showResult(el, res) {
       if (res) {
         Object(_functions__WEBPACK_IMPORTED_MODULE_2__["setStyle"])(el.successEl, {
@@ -11115,138 +11052,119 @@ var GyoProgressButton = function () {
       }
     }
   };
+  return _objectSpread({}, _this, {
+    progressInit: function progressInit(_ref) {
+      var form = _ref.form,
+          position = _ref.position,
+          color = _ref.color,
+          size = _ref.size;
 
-  var _ = Object(private_parts__WEBPACK_IMPORTED_MODULE_3__["createKey"])(privateMethods);
+      if (!nodeElementsArr) {
+        var that = this;
+        form = form || 'wave';
+        position = position || 'top';
+        color = color || 'gray';
+        size = size || '30px';
 
-  var GyoProgressButton = function GyoProgressButton(sel) {
-    _button__WEBPACK_IMPORTED_MODULE_0__["default"].call(this, sel);
-    _(this).nodeArr = this.getNodeArr();
-    _(this).style = this.getStyle();
-  };
+        var callback = function callback(e) {
+          var idx = nodeElementsArr.findIndex(function (o) {
+            return o.node === e.currentTarget;
+          });
+          var element = nodeElementsArr[idx];
+          element.progressEl.style.display = 'flex';
 
-  GyoProgressButton.prototype = Object.create(_button__WEBPACK_IMPORTED_MODULE_0__["default"].prototype);
-  GyoProgressButton.prototype.constructor = GyoProgressButton;
+          switch (position) {
+            case 'top':
+              {
+                element.progressEl.style.top = parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_2__["returnComputedStyle"])(element.node, 'height')) / 7 + 'px';
+                break;
+              }
 
-  GyoProgressButton.prototype.progressInit = function (_ref) {
-    var form = _ref.form,
-        position = _ref.position,
-        color = _ref.color,
-        size = _ref.size;
+            case 'right':
+              {
+                element.progressEl.style.left = parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_2__["returnComputedStyle"])(element.wrap, 'width')) - parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_2__["returnComputedStyle"])(element.wrap, 'width')) / 8 + 'px';
+                break;
+              }
 
-    if (!_(this).nodeElementsArr) {
-      var that = this;
-      form = form || 'wave';
-      position = position || 'top';
-      color = color || 'gray';
-      size = size || '30px';
+            case 'bottom':
+              {
+                element.progressEl.style.top = parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_2__["returnComputedStyle"])(element.wrap, 'height')) - parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_2__["returnComputedStyle"])(element.wrap, 'height')) / 7 + 'px';
+                break;
+              }
 
-      var callback = function callback(e) {
-        var idx = _(that).nodeElementsArr.findIndex(function (o) {
-          return o.node === e.currentTarget;
-        });
+            case 'left':
+              {
+                element.progressEl.style.left = parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_2__["returnComputedStyle"])(element.node, 'width')) / 8 + 'px';
+                break;
+              }
 
-        var element = _(that).nodeElementsArr[idx];
+            case 'center':
+              {
+                break;
+              }
 
-        element.progressEl.style.display = 'flex';
-
-        switch (position) {
-          case 'top':
-            {
-              element.progressEl.style.top = parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_2__["returnComputedStyle"])(element.node, 'height')) / 7 + 'px';
+            default:
               break;
-            }
+          }
 
-          case 'right':
-            {
-              element.progressEl.style.left = parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_2__["returnComputedStyle"])(element.wrap, 'width')) - parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_2__["returnComputedStyle"])(element.wrap, 'width')) / 8 + 'px';
-              break;
-            }
-
-          case 'bottom':
-            {
-              element.progressEl.style.top = parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_2__["returnComputedStyle"])(element.wrap, 'height')) - parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_2__["returnComputedStyle"])(element.wrap, 'height')) / 7 + 'px';
-              break;
-            }
-
-          case 'left':
-            {
-              element.progressEl.style.left = parseInt(Object(_functions__WEBPACK_IMPORTED_MODULE_2__["returnComputedStyle"])(element.node, 'width')) / 8 + 'px';
-              break;
-            }
-
-          case 'center':
-            {
-              break;
-            }
-
-          default:
-            break;
-        }
-
-        element.progressEl.style.opacity = '1';
-      };
-
-      _(this).nodeElementsArr = Array.from(_(this).nodeArr).map(function (el) {
-        return {
-          node: el,
-          wrap: document.createElement('div'),
-          progressEl: Object(_elements__WEBPACK_IMPORTED_MODULE_1__["progressAnimationElement"])(form, color, size),
-          successEl: Object(_elements__WEBPACK_IMPORTED_MODULE_1__["successAnimationElement"])(),
-          failEl: Object(_elements__WEBPACK_IMPORTED_MODULE_1__["failAnimationElement"])()
+          element.progressEl.style.opacity = '1';
         };
-      });
-      var _iteratorNormalCompletion2 = true;
-      var _didIteratorError2 = false;
-      var _iteratorError2 = undefined;
 
-      try {
-        for (var _iterator2 = _(this).nodeElementsArr[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-          var el = _step2.value;
-          Object(_functions__WEBPACK_IMPORTED_MODULE_2__["addEvent"])(el.node, 'click', callback);
-        }
-      } catch (err) {
-        _didIteratorError2 = true;
-        _iteratorError2 = err;
-      } finally {
+        nodeElementsArr = Array.from(nodeArr).map(function (el) {
+          return {
+            node: el,
+            wrap: document.createElement('div'),
+            progressEl: Object(_elements__WEBPACK_IMPORTED_MODULE_1__["progressAnimationElement"])(form, color, size),
+            successEl: Object(_elements__WEBPACK_IMPORTED_MODULE_1__["successAnimationElement"])(),
+            failEl: Object(_elements__WEBPACK_IMPORTED_MODULE_1__["failAnimationElement"])()
+          };
+        });
+        var _iteratorNormalCompletion2 = true;
+        var _didIteratorError2 = false;
+        var _iteratorError2 = undefined;
+
         try {
-          if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
-            _iterator2.return();
+          for (var _iterator2 = nodeElementsArr[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+            var el = _step2.value;
+            el.node.addEventListener('click', callback);
           }
+        } catch (err) {
+          _didIteratorError2 = true;
+          _iteratorError2 = err;
         } finally {
-          if (_didIteratorError2) {
-            throw _iteratorError2;
+          try {
+            if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
+              _iterator2.return();
+            }
+          } finally {
+            if (_didIteratorError2) {
+              throw _iteratorError2;
+            }
           }
         }
+
+        _private.initProgressBtnEl(nodeElementsArr);
       }
+    },
+    getNode: function getNode() {
+      return nodeArr;
+    },
+    progressEnd: function progressEnd(node, res) {
+      var idx = nodeElementsArr.findIndex(function (o) {
+        return o.node === node;
+      });
+      nodeElementsArr[idx].progressEl.style.left = '50%';
+      nodeElementsArr[idx].progressEl.style.top = '50%';
+      nodeElementsArr[idx].progressEl.style.opacity = '0';
+      var temp = parseInt(nodeElementsArr[idx].progressEl.style.transitionDuration);
+      setTimeout(function () {
+        nodeElementsArr[idx].progressEl.style.display = 'none';
+      }, temp <= 0 ? 1000 : temp * 1000);
 
-      _(this).initProgressBtnEl(_(this).nodeElementsArr);
+      _private.showResult(nodeElementsArr[idx], res);
     }
-  };
-
-  GyoProgressButton.prototype.getNode = function () {
-    return _(this).nodeArr;
-  };
-
-  GyoProgressButton.prototype.progressEnd = function (node, res) {
-    var _this = this;
-
-    var idx = _(this).nodeElementsArr.findIndex(function (o) {
-      return o.node === node;
-    });
-
-    _(this).nodeElementsArr[idx].progressEl.style.left = '50%';
-    _(this).nodeElementsArr[idx].progressEl.style.top = '50%';
-    _(this).nodeElementsArr[idx].progressEl.style.opacity = '0';
-    var temp = parseInt(_(this).nodeElementsArr[idx].progressEl.style.transitionDuration);
-    setTimeout(function () {
-      _(_this).nodeElementsArr[idx].progressEl.style.display = 'none';
-    }, temp <= 0 ? 1000 : temp * 1000);
-
-    _(this).showResult(_(this).nodeElementsArr[idx], res);
-  };
-
-  return GyoProgressButton;
-}();
+  });
+};
 
 /* harmony default export */ __webpack_exports__["default"] = (GyoProgressButton);
 

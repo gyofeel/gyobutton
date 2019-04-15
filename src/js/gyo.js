@@ -11,6 +11,6 @@ window.Gyo = Gyo = Gyo || {};
 
 Gyo.button = GyoButton;
 Gyo.toggleButton = GyoToggleButton;
-// Gyo.progressButton = GyoProgressButton;
+Gyo.progressButton = GyoProgressButton;
 
 Gyo.noConflict = noConflict;
