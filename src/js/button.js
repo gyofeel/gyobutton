@@ -5,35 +5,35 @@ import {
 
 'use strict'
 
-//GyoButton
-//private
-//Variable
-let selector, nodeArr, style, callback;
-//Method
-const _private = {
-    setStyle: function (node, style) {
-        const _style = Object.entries(style);
-        for (const v of _style) {
-            node.style[v[0]] = v[1];
-            // To add vendor-prefix(Cross Browsing)
-            // v[0][0].toUpperCase(): first chracter of property name to capital chracter.
-            // Array.from(v[0]).splice(1).join(''): remove first character
-            // let temp = v[0][1].toUpperCase() + Array.from(v[0]).map((el, i)=>{if(i!==0)return el})
-            const temp = v[0][0].toUpperCase() + Array.from(v[0]).splice(1).join('');
-            for (const el of prefixArr) node.style[el + temp] = v[1];
-        }
-    },
-    returnComputedStyle: (node, property) => window.getComputedStyle(node)[property],
-    addEvent: function (node, event, callback) {
-        node.addEventListener(event, callback);
-    },
-    removeEvent: function (node, event, callback) {
-        node.removeEventListener(event, callback);
-    }
-};
-
 //Constructor
 let GyoButton = function (sel) {
+    //GyoButton
+    //private
+    //Variable
+    let selector, nodeArr, style, callback;
+    //Method
+    const _private = {
+        setStyle: function (node, style) {
+            const _style = Object.entries(style);
+            for (const v of _style) {
+                node.style[v[0]] = v[1];
+                // To add vendor-prefix(Cross Browsing)
+                // v[0][0].toUpperCase(): first chracter of property name to capital chracter.
+                // Array.from(v[0]).splice(1).join(''): remove first character
+                // let temp = v[0][1].toUpperCase() + Array.from(v[0]).map((el, i)=>{if(i!==0)return el})
+                const temp = v[0][0].toUpperCase() + Array.from(v[0]).splice(1).join('');
+                for (const el of prefixArr) node.style[el + temp] = v[1];
+            }
+        },
+        returnComputedStyle: (node, property) => window.getComputedStyle(node)[property],
+        addEvent: function (node, event, callback) {
+            node.addEventListener(event, callback);
+        },
+        removeEvent: function (node, event, callback) {
+            node.removeEventListener(event, callback);
+        }
+    };
+
     try {
         if (sel && typeof sel === 'string') {
             selector = sel;
@@ -53,7 +53,7 @@ let GyoButton = function (sel) {
 
     return {
         getNodeArr: function () {
-            return nodeArr
+            return selector;
         },
         getStyle: function () {
             return style
@@ -65,9 +65,9 @@ let GyoButton = function (sel) {
                 _private.setStyle(node, style);
             }
         },
-        addEvent: function (eventName, callback) {
+        addEvent: function (eventName, pCallback) {
             callback = function (e) {
-                callback(e);
+                pCallback(e);
             };
             for (let node of nodeArr) {
                 _private.addEvent(node, eventName, callback);

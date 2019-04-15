@@ -1,108 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>gyobutton example</title>
 
-    <link rel="stylesheet" type="text/css" href="./index.css" />
-    <!-- <script type="text/javascript" src="./dist/js/gyobutton.js"></script> -->
-    <script type="text/javascript" src="./dist/js/gyobutton.js"></script>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>gyobutton example</title>
 
-  <body>
-    <h1><u>gyobutton</u> Example</h1>
+  <link rel="stylesheet" type="text/css" href="./index.css" />
+  <!-- <script type="text/javascript" src="./dist/js/gyobutton.js"></script> -->
+  <script type="text/javascript" src="./dist/js/gyobutton.js"></script>
+</head>
 
-    <hr />
-    <br />
+<body>
+  <h1><u>gyobutton</u> Example</h1>
 
-    <a href="#button-default-title">♦︎ Default Button</a><br />
-    <a href="#button-toggle-title">︎♦︎ Toggle Button</a><br />
-    <a href="#button-progress-title">♦︎ Progress Button</a><br />
+  <hr />
+  <br />
 
-    <br /><br />
+  <a href="#button-default-title">♦︎ Default Button</a><br />
+  <a href="#button-toggle-title">︎♦︎ Toggle Button</a><br />
+  <a href="#button-progress-title">♦︎ Progress Button</a><br />
 
-    <h2 id="button-default-title">⌾ Default Button</h2>
-    <button id="button-default">Default Button</button>
+  <br /><br />
 
-    <br /><br />
+  <h2 id="button-default-title">⌾ Default Button</h2>
+  <button id="button-default">Default Button</button>
 
-    <h2>⌾ Button Sytle Customizing</h2>
-    <p>
-      Arguments of button() is a object for style.<br />You can make your button
-      style.
-    </p>
-    <button id="button-style">Button Style Custom</button>
+  <br /><br />
 
-    <br /><br />
+  <h2>⌾ Button Sytle Customizing</h2>
+  <p>
+    Arguments of button() is a object for style.<br />You can make your button
+    style.
+  </p>
+  <button id="button-style">Button Style Custom</button>
 
-    <h2>⌾ Button from Varius Elements</h2>
-    <p>You can make varius elements 'BUTTON'.</p>
-    <button id="button-button">Button Element</button>
-    <br />
-    <div id="button-div">Div Element</div>
-    <br />
-    <section id="button-section">Section Element</section>
+  <br /><br />
 
-    <br /><br />
+  <h2>⌾ Button from Varius Elements</h2>
+  <p>You can make varius elements 'BUTTON'.</p>
+  <button id="button-button">Button Element</button>
+  <br />
+  <div id="button-div">Div Element</div>
+  <br />
+  <section id="button-section">Section Element</section>
 
-    <h2>⌾ Get Elements</h2>
-    <p>
-      You can get elements(only 'block' or 'inline-block' display property)
-      using css selector value.
-    </p>
-    <button id="button-id">#id</button>
-    <br />
-    <button class="button-class">.class</button>
-    <button class="button-class">.class</button>
-    <button class="button-class">.class</button>
-    <br />
-    <div id="selector">
-      <button id="button-selector">#selector>button</button>
-    </div>
+  <br /><br />
 
-    <br /><br />
+  <h2>⌾ Get Elements</h2>
+  <p>
+    You can get elements(only 'block' or 'inline-block' display property)
+    using css selector value.
+  </p>
+  <button id="button-id">#id</button>
+  <br />
+  <button class="button-class">.class</button>
+  <button class="button-class">.class</button>
+  <button class="button-class">.class</button>
+  <br />
+  <div id="selector">
+    <button id="button-selector">#selector>button</button>
+  </div>
 
-    <h2>⌾ Add Event Listener</h2>
-    <button id="button-event-down">mousedown event</button>
-    <button id="button-event-up">mouseup event</button>
-    <button id="button-event-over">mouseover event</button>
-    <button id="button-event-out">mouseout event</button>
+  <br /><br />
 
-    <br />
-    <hr />
-    <br />
+  <h2>⌾ Add Event Listener</h2>
+  <button id="button-event-down">mousedown event</button>
+  <button id="button-event-up">mouseup event</button>
+  <button id="button-event-over">mouseover event</button>
+  <button id="button-event-out">mouseout event</button>
 
-    <h2 id="button-toggle-title">⌾ Toggle Button</h2>
-    <button id="button-toggle">Toggle Button</button>
+  <br />
+  <hr />
+  <br />
 
-    <br /><br />
+  <h2 id="button-toggle-title">⌾ Toggle Button</h2>
+  <button id="button-toggle">Toggle Button</button>
 
-    <h2>⌾ Toggle Sytle Customizing</h2>
-    <p>
-      The 2nd and 3rd arguments of toggle() is a object for style.<br />Toggle-on
-      and toggle-off.
-    </p>
-    <button id="button-style-toggle">Toggle Style Custom</button>
+  <br /><br />
 
-    <h2>⌾ Toggle Event Callback Function</h2>
-    <button id="button-callback-toggle">Toggle Event Callback</button>
+  <h2>⌾ Toggle Sytle Customizing</h2>
+  <p>
+    The 2nd and 3rd arguments of toggle() is a object for style.<br />Toggle-on
+    and toggle-off.
+  </p>
+  <button id="button-style-toggle">Toggle Style Custom</button>
 
-    <br />
-    <hr />
-    <br />
+  <h2>⌾ Toggle Event Callback Function</h2>
+  <button id="button-callback-toggle">Toggle Event Callback</button>
 
-    <h2 id="button-progress-title">⌾ Progress Event Callback Function</h2>
-    <button class="button-progress">Toggle Style Custom</button>
-    <button class="button-progress">Toggle Style Custom</button>
-    <button class="button-progress">Toggle Style Custom</button>
-    <button class="button-progress">Toggle Style Custom</button>
-    <button class="button-progress">Toggle Style Custom</button>
-    <button class="button-progress">Toggle Style Custom</button>
+  <br />
+  <hr />
+  <br />
 
-    <br /><br /><br />
-  </body>
+  <h2 id="button-progress-title">⌾ Progress Event Callback Function</h2>
+  <button class="button-progress">Toggle Style Custom</button>
+  <button class="button-progress">Toggle Style Custom</button>
+  <button class="button-progress">Toggle Style Custom</button>
+  <button class="button-progress">Toggle Style Custom</button>
+  <button class="button-progress">Toggle Style Custom</button>
+  <button class="button-progress">Toggle Style Custom</button>
+
+  <br /><br /><br />
+</body>
+
 </html>
 <script type="text/javascript">
   //Default Button
@@ -137,16 +139,16 @@
   g8.button();
 
   //Add Event Listener
-  const onMouseDown = function() {
+  const onMouseDown = function () {
     alert("Mouse Down!");
   };
-  const onMouseUp = function() {
+  const onMouseUp = function () {
     alert("Mouse Up!");
   };
-  const onMouseOver = function() {
+  const onMouseOver = function () {
     alert("Mouse Over!");
   };
-  const onMouseOut = function() {
+  const onMouseOut = function () {
     alert("Mouse Out!");
   };
   let g9 = new Gyo.button("#button-event-down");
@@ -180,12 +182,10 @@
     transition: "0.5s"
   });
   g14.toggle(
-    null,
-    {
+    null, {
       border: "8px solid red",
       color: "red"
-    },
-    {
+    }, {
       width: "150px",
       height: "150px",
       borderRadius: "30px",
@@ -196,7 +196,7 @@
   );
 
   //Toggle Event Callback Function
-  const onMouseToggle = function(node, state) {
+  const onMouseToggle = function (node, state) {
     alert("Mouse Toggle! / " + node + " / " + state);
   };
   let g15 = new Gyo.toggleButton("#button-callback-toggle");
@@ -216,7 +216,7 @@
     color: "hotpink",
     size: "40px"
   });
-  g16.addEvent("mouseup", function(e) {
+  g16.addEvent("mouseup", function (e) {
     let temp = e.currentTarget;
     let res = Math.random() * 10 >= 3 ? true : false;
     setTimeout(() => {

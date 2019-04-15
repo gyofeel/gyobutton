@@ -10569,64 +10569,65 @@ module.exports = g;
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "./src/js/constants.js");
 
-'use strict'; //GyoButton
-//private
-//Variable
+'use strict'; //Constructor
 
 
-var selector, nodeArr, style, callback; //Method
+var GyoButton = function GyoButton(sel) {
+  //GyoButton
+  //private
+  //Variable
+  var selector, nodeArr, style, callback; //Method
 
-var _private = {
-  setStyle: function setStyle(node, style) {
-    var _style = Object.entries(style);
+  var _private = {
+    setStyle: function setStyle(node, style) {
+      var _style = Object.entries(style);
 
-    var _arr = _style;
+      var _arr = _style;
 
-    for (var _i = 0; _i < _arr.length; _i++) {
-      var v = _arr[_i];
-      node.style[v[0]] = v[1]; // To add vendor-prefix(Cross Browsing)
-      // v[0][0].toUpperCase(): first chracter of property name to capital chracter.
-      // Array.from(v[0]).splice(1).join(''): remove first character
-      // let temp = v[0][1].toUpperCase() + Array.from(v[0]).map((el, i)=>{if(i!==0)return el})
+      for (var _i = 0; _i < _arr.length; _i++) {
+        var v = _arr[_i];
+        node.style[v[0]] = v[1]; // To add vendor-prefix(Cross Browsing)
+        // v[0][0].toUpperCase(): first chracter of property name to capital chracter.
+        // Array.from(v[0]).splice(1).join(''): remove first character
+        // let temp = v[0][1].toUpperCase() + Array.from(v[0]).map((el, i)=>{if(i!==0)return el})
 
-      var temp = v[0][0].toUpperCase() + Array.from(v[0]).splice(1).join('');
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
+        var temp = v[0][0].toUpperCase() + Array.from(v[0]).splice(1).join('');
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
 
-      try {
-        for (var _iterator = _constants__WEBPACK_IMPORTED_MODULE_0__["prefixArr"][Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var el = _step.value;
-          node.style[el + temp] = v[1];
-        }
-      } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-      } finally {
         try {
-          if (!_iteratorNormalCompletion && _iterator.return != null) {
-            _iterator.return();
+          for (var _iterator = _constants__WEBPACK_IMPORTED_MODULE_0__["prefixArr"][Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var el = _step.value;
+            node.style[el + temp] = v[1];
           }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
         } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
+          try {
+            if (!_iteratorNormalCompletion && _iterator.return != null) {
+              _iterator.return();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
           }
         }
       }
+    },
+    returnComputedStyle: function returnComputedStyle(node, property) {
+      return window.getComputedStyle(node)[property];
+    },
+    addEvent: function addEvent(node, event, callback) {
+      node.addEventListener(event, callback);
+    },
+    removeEvent: function removeEvent(node, event, callback) {
+      node.removeEventListener(event, callback);
     }
-  },
-  returnComputedStyle: function returnComputedStyle(node, property) {
-    return window.getComputedStyle(node)[property];
-  },
-  addEvent: function addEvent(node, event, callback) {
-    node.addEventListener(event, callback);
-  },
-  removeEvent: function removeEvent(node, event, callback) {
-    node.removeEventListener(event, callback);
-  }
-}; //Constructor
+  };
 
-var GyoButton = function GyoButton(sel) {
   try {
     if (sel && typeof sel === 'string') {
       selector = sel;
@@ -10667,7 +10668,7 @@ var GyoButton = function GyoButton(sel) {
 
   return {
     getNodeArr: function getNodeArr() {
-      return nodeArr;
+      return selector;
     },
     getStyle: function getStyle() {
       return style;
@@ -10701,9 +10702,9 @@ var GyoButton = function GyoButton(sel) {
         }
       }
     },
-    addEvent: function addEvent(eventName, _callback) {
-      _callback = function callback(e) {
-        _callback(e);
+    addEvent: function addEvent(eventName, pCallback) {
+      callback = function callback(e) {
+        pCallback(e);
       };
 
       var _iteratorNormalCompletion4 = true;
@@ -10714,7 +10715,7 @@ var GyoButton = function GyoButton(sel) {
         for (var _iterator4 = nodeArr[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
           var node = _step4.value;
 
-          _private.addEvent(node, eventName, _callback);
+          _private.addEvent(node, eventName, callback);
         }
       } catch (err) {
         _didIteratorError4 = true;
