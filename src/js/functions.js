@@ -19,16 +19,7 @@ const setStyle = (node, style) => {
 
 const returnComputedStyle = (node, property) => window.getComputedStyle(node)[property];
 
-const addEvent = (node, event, callback) => {
-  node.addEventListener(event, callback);
-};
-const removeEvent = (node, event, callback) => {
-  node.removeEventListener(event, callback);
-};
-
 export {
   setStyle,
   returnComputedStyle,
-  addEvent,
-  removeEvent,
 };

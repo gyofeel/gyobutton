@@ -7,19 +7,20 @@ import {
 import {
     setStyle,
     returnComputedStyle,
-    addEvent
 } from './functions';
-import {
-    createKey
-} from 'private-parts';
 
-let GyoProgressButton = function () {
-    'use strict';
+'use strict';
+
+const GyoProgressButton = function (sel) {
 
     //GyoProgressButton
     //Private Member
-    //Method
-    const privateMethods = {
+    //Variables
+    const _this = GyoButton.call(this, sel);
+    let nodeElementsArr;
+    const nodeArr = _this.getNodeArr();
+    //Methods
+    const _private = {
         showResult: function (el, res) {
             if (res) {
                 setStyle(el.successEl, {
@@ -80,92 +81,85 @@ let GyoProgressButton = function () {
             }
         }
     };
-    let _ = createKey(privateMethods);
-    const GyoProgressButton = function (sel) {
-        GyoButton.call(this, sel);
-        _(this).nodeArr = this.getNodeArr();
-        _(this).style = this.getStyle();
-    };
-    GyoProgressButton.prototype = Object.create(GyoButton.prototype);
-    GyoProgressButton.prototype.constructor = GyoProgressButton;
 
-    GyoProgressButton.prototype.progressInit = function ({
-        form,
-        position,
-        color,
-        size
-    }) {
-        if (!_(this).nodeElementsArr) {
-            let that = this;
-            form = form || 'wave';
-            position = position || 'top';
-            color = color || 'gray';
-            size = size || '30px';
+    return {
+        ..._this,
+        progressInit: function ({
+            form,
+            position,
+            color,
+            size
+        }) {
+            if (!nodeElementsArr) {
+                let that = this;
+                form = form || 'wave';
+                position = position || 'top';
+                color = color || 'gray';
+                size = size || '30px';
 
-            const callback = function (e) {
-                const idx = _(that).nodeElementsArr.findIndex((o) => o.node === e.currentTarget);
-                const element = _(that).nodeElementsArr[idx];
-                element.progressEl.style.display = 'flex';
-                switch (position) {
-                    case 'top':
-                        {
-                            element.progressEl.style.top = parseInt(returnComputedStyle(element.node, 'height')) / 7 + 'px';
+                const callback = function (e) {
+                    const idx = nodeElementsArr.findIndex((o) => o.node === e.currentTarget);
+                    const element = nodeElementsArr[idx];
+                    element.progressEl.style.display = 'flex';
+                    switch (position) {
+                        case 'top':
+                            {
+                                element.progressEl.style.top = parseInt(returnComputedStyle(element.node, 'height')) / 7 + 'px';
+                                break;
+                            }
+                        case 'right':
+                            {
+                                element.progressEl.style.left = parseInt(returnComputedStyle(element.wrap, 'width')) - parseInt(returnComputedStyle(element.wrap, 'width')) / 8 + 'px';
+                                break;
+                            }
+                        case 'bottom':
+                            {
+                                element.progressEl.style.top = parseInt(returnComputedStyle(element.wrap, 'height')) - parseInt(returnComputedStyle(element.wrap, 'height')) / 7 + 'px';
+                                break;
+                            }
+                        case 'left':
+                            {
+                                element.progressEl.style.left = parseInt(returnComputedStyle(element.node, 'width')) / 8 + 'px';
+                                break;
+                            }
+                        case 'center':
+                            {
+                                break;
+                            }
+                        default:
                             break;
-                        }
-                    case 'right':
-                        {
-                            element.progressEl.style.left = parseInt(returnComputedStyle(element.wrap, 'width')) - parseInt(returnComputedStyle(element.wrap, 'width')) / 8 + 'px';
-                            break;
-                        }
-                    case 'bottom':
-                        {
-                            element.progressEl.style.top = parseInt(returnComputedStyle(element.wrap, 'height')) - parseInt(returnComputedStyle(element.wrap, 'height')) / 7 + 'px';
-                            break;
-                        }
-                    case 'left':
-                        {
-                            element.progressEl.style.left = parseInt(returnComputedStyle(element.node, 'width')) / 8 + 'px';
-                            break;
-                        }
-                    case 'center':
-                        {
-                            break;
-                        }
-                    default:
-                        break;
+                    }
+                    element.progressEl.style.opacity = '1';
                 }
-                element.progressEl.style.opacity = '1';
+                nodeElementsArr = Array.from(nodeArr).map((el) => ({
+                    node: el,
+                    wrap: document.createElement('div'),
+                    progressEl: progressAnimationElement(form, color, size),
+                    successEl: successAnimationElement(),
+                    failEl: failAnimationElement()
+                }));
+                for (let el of nodeElementsArr) {
+                    el.node.addEventListener('click', callback);
+                }
+                _private.initProgressBtnEl(nodeElementsArr);
             }
-            _(this).nodeElementsArr = Array.from(_(this).nodeArr).map((el) => ({
-                node: el,
-                wrap: document.createElement('div'),
-                progressEl: progressAnimationElement(form, color, size),
-                successEl: successAnimationElement(),
-                failEl: failAnimationElement()
-            }));
-            for (let el of _(this).nodeElementsArr) {
-                addEvent(el.node, 'click', callback);
-            }
-            _(this).initProgressBtnEl(_(this).nodeElementsArr);
+        },
+        getNode: function () {
+            return nodeArr
+        },
+        progressEnd: function (node, res) {
+            const idx = nodeElementsArr.findIndex((o) => o.node === node);
+            nodeElementsArr[idx].progressEl.style.left = '50%';
+            nodeElementsArr[idx].progressEl.style.top = '50%';
+            nodeElementsArr[idx].progressEl.style.opacity = '0';
+            let temp = parseInt(nodeElementsArr[idx].progressEl.style.transitionDuration);
+            setTimeout(() => {
+                nodeElementsArr[idx].progressEl.style.display = 'none';
+            }, (temp <= 0) ? 1000 : temp * 1000);
+
+            _private.showResult(nodeElementsArr[idx], res);
         }
-    };
-    GyoProgressButton.prototype.getNode = function () {
-        return _(this).nodeArr
-    };
-    GyoProgressButton.prototype.progressEnd = function (node, res) {
-        const idx = _(this).nodeElementsArr.findIndex((o) => o.node === node);
-        _(this).nodeElementsArr[idx].progressEl.style.left = '50%';
-        _(this).nodeElementsArr[idx].progressEl.style.top = '50%';
-        _(this).nodeElementsArr[idx].progressEl.style.opacity = '0';
-        let temp = parseInt(_(this).nodeElementsArr[idx].progressEl.style.transitionDuration);
-        setTimeout(() => {
-            _(this).nodeElementsArr[idx].progressEl.style.display = 'none';
-        }, (temp <= 0) ? 1000 : temp * 1000);
-
-        _(this).showResult(_(this).nodeElementsArr[idx], res);
-    };
-
-    return GyoProgressButton;
-}();
+    }
+};
 
 export default GyoProgressButton;

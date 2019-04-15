@@ -1,67 +1,68 @@
-import GyoButton from './button';
+import GyoButton from "./button";
 import {
     styleObj
-} from './constants';
+} from "./constants";
 import {
     setStyle,
-    addEvent,
-    removeEvent
 } from './functions';
-import {
-    createKey
-} from 'private-parts';
 
-let GyoToggleButton = function () {
-    'use strict'
+"use strict";
 
+const GyoToggleButton = function (sel) {
+    let _this = GyoButton.call(this, sel);
     //GyoToggleButton
     //Private Member
-    //Method
-    const privateMethods = {
+    //Variables
+    let nodeStateArr, callback;
+    //Methods
+    const _private = {
         initToggle: function (el, cb) {
-            addEvent(el[0], 'mouseup', cb);
+            el[0].addEventListener("mouseup", cb);
         }
     };
-    let _ = createKey(privateMethods);
-    const GyoToggleButton = function (sel) {
-        GyoButton.call(this, sel);
-        _(this).nodeStateArr = Array.from(this.getNodeArr()).map((el) => [el, false]);
-    };
-    GyoToggleButton.prototype = Object.create(GyoButton.prototype);
-    GyoToggleButton.prototype.constructor = GyoToggleButton;
 
-    GyoToggleButton.prototype.toggle = function (callback, stateProp, stateOutProp) {
-        let that = this;
-        const styleStateEffect = (stateProp) ? stateProp : styleObj.state_effect;
-        const styleStateEffectOut = (stateOutProp) ? stateOutProp : styleObj.state_effect_out;
-        if (_(this).callback) {
-            for (let el of _(this).nodeStateArr) {
-                removeEvent(el[0], 'mouseup', _(this).callback);
-                el[1] = false;
+    nodeStateArr = Array.from(_this.getNodeArr()).map(el => [el, false]);
+
+    return {
+        ..._this,
+        toggle: function (
+            pCallback,
+            stateProp,
+            stateOutProp
+        ) {
+            const styleStateEffect = stateProp ? stateProp : styleObj.state_effect;
+            const styleStateEffectOut = stateOutProp ?
+                stateOutProp :
+                styleObj.state_effect_out;
+            if (pCallback) {
+                for (let el of nodeStateArr) {
+                    el[0].removeEventListener("mouseup", callback);
+                    el[1] = false;
+                }
+            }
+            callback = function (e) {
+                const stateIdx = nodeStateArr.findIndex(el => el[0] === this);
+                let stateStyle;
+                nodeStateArr[stateIdx][1] = !nodeStateArr[stateIdx][1];
+                if (nodeStateArr[stateIdx][1]) {
+                    stateStyle = styleStateEffect;
+                } else {
+                    stateStyle = styleStateEffectOut;
+                }
+                setStyle(this, stateStyle);
+                //callback function have value of node element and toggle state of this.
+                if (pCallback) pCallback(this, nodeStateArr[stateIdx][1]);
+            };
+
+            for (let el of nodeStateArr) {
+                _private.initToggle(el, callback);
             }
         }
+    }
+};
+GyoToggleButton.prototype = Object.create(GyoButton.prototype);
+GyoToggleButton.prototype.constructor = GyoToggleButton;
 
-        _(this).callback = function (e) {
-            const stateIdx = (_(that).nodeStateArr).findIndex((el) => el[0] === this);
-            let stateStyle;
-            _(that).nodeStateArr[stateIdx][1] = !_(that).nodeStateArr[stateIdx][1];
-            if (_(that).nodeStateArr[stateIdx][1]) {
-                stateStyle = styleStateEffect;
-            } else {
-                stateStyle = styleStateEffectOut;
-
-            }
-            setStyle(this, stateStyle);
-            //callback function have value of node element and toggle state of this.
-            if (callback) callback(this, _(that).nodeStateArr[stateIdx][1]);
-        };
-
-        for (let el of _(this).nodeStateArr) {
-            _(this).initToggle(el, _(this).callback);
-        }
-    };
-
-    return GyoToggleButton;
-}();
+// return GyoToggleButton;
 
 export default GyoToggleButton;
