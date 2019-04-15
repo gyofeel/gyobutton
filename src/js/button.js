@@ -2,14 +2,10 @@ import {
     createKey
 } from 'private-parts';
 import {
-    styleObj
+    styleObj,
+    prefixArr
 } from './constants';
-import {
-    setStyle,
-    returnComputedStyle,
-    addEvent,
-    removeEvent
-} from './functions';
+
 
 let GyoButton = function () {
     'use strict'
@@ -17,7 +13,27 @@ let GyoButton = function () {
     //GyoButton
     //private
     //Method
-    const privateMethods = {};
+    const privateMethods = {
+        setStyle: function (node, style) {
+            const _style = Object.entries(style);
+            for (const v of _style) {
+                node.style[v[0]] = v[1];
+                // To add vendor-prefix(Cross Browsing)
+                // v[0][0].toUpperCase(): first chracter of property name to capital chracter.
+                // Array.from(v[0]).splice(1).join(''): remove first character
+                // let temp = v[0][1].toUpperCase() + Array.from(v[0]).map((el, i)=>{if(i!==0)return el})
+                const temp = v[0][0].toUpperCase() + Array.from(v[0]).splice(1).join('');
+                for (const el of prefixArr) node.style[el + temp] = v[1];
+            }
+        },
+        returnComputedStyle: (node, property) => window.getComputedStyle(node)[property],
+        addEvent: function (node, event, callback) {
+            node.addEventListener(event, callback);
+        },
+        removeEvent: function (node, event, callback) {
+            node.removeEventListener(event, callback);
+        }
+    };
     let _ = createKey(privateMethods);
 
     //Constructor
@@ -29,7 +45,7 @@ let GyoButton = function () {
                 if (!_(this).nodeArr || _(this).nodeArr.length === 0) throw (new Error(`Didn\'t find any element-node from this arguments : "${_(this).selector}"`));
                 else {
                     for (let v of _(this).nodeArr) {
-                        const temp = returnComputedStyle(v, 'display');
+                        const temp = _(this).returnComputedStyle(v, 'display');
                         if (temp !== 'inline-block' && temp !== 'block') throw (new Error(`Not supported display value of element : ${temp}`));
                     }
                 }
@@ -50,8 +66,8 @@ let GyoButton = function () {
         button: function (initStyleProperty) {
             _(this).style = (initStyleProperty) ? initStyleProperty : {};
             for (let node of _(this).nodeArr) {
-                setStyle(node, styleObj.init);
-                setStyle(node, _(this).style);
+                _(this).setStyle(node, styleObj.init);
+                _(this).setStyle(node, _(this).style);
             }
         },
         addEvent: function (eventName, callback) {
@@ -59,12 +75,12 @@ let GyoButton = function () {
                 callback(e);
             };
             for (let node of _(this).nodeArr) {
-                addEvent(node, eventName, _(this).callback);
+                _(this).addEvent(node, eventName, _(this).callback);
             }
         },
         removeEvent: function (eventName, callback) {
             for (let node of _(this).nodeArr) {
-                removeEvent(node, eventName, _(this).callback);
+                _(this).removeEvent(node, eventName, _(this).callback);
             }
             _(this).callback = null;
         }
