@@ -10568,6 +10568,8 @@ module.exports = g;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "./src/js/constants.js");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./functions */ "./src/js/functions.js");
+
 
 'use strict'; //Constructor
 
@@ -10575,31 +10577,23 @@ __webpack_require__.r(__webpack_exports__);
 var GyoButton = function GyoButton(sel) {
   //GyoButton
   //private
-  //Variable
-  var selector, nodeArr, style, callback; //Method
+  //Variables
+  var selector, nodeArr, style, callback; //Methods
 
-  var _private = {
-    setStyle: function setStyle(node, style) {
-      var _style = Object.entries(style);
-
-      var _arr = _style;
-
-      for (var _i = 0; _i < _arr.length; _i++) {
-        var v = _arr[_i];
-        node.style[v[0]] = v[1]; // To add vendor-prefix(Cross Browsing)
-        // v[0][0].toUpperCase(): first chracter of property name to capital chracter.
-        // Array.from(v[0]).splice(1).join(''): remove first character
-        // let temp = v[0][1].toUpperCase() + Array.from(v[0]).map((el, i)=>{if(i!==0)return el})
-
-        var temp = v[0][0].toUpperCase() + Array.from(v[0]).splice(1).join('');
+  try {
+    if (sel && typeof sel === 'string') {
+      selector = sel;
+      nodeArr = document.querySelectorAll(selector);
+      if (!nodeArr || nodeArr.length === 0) throw new Error("Didn't find any element-node from this arguments : \"".concat(selector, "\""));else {
         var _iteratorNormalCompletion = true;
         var _didIteratorError = false;
         var _iteratorError = undefined;
 
         try {
-          for (var _iterator = _constants__WEBPACK_IMPORTED_MODULE_0__["prefixArr"][Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-            var el = _step.value;
-            node.style[el + temp] = v[1];
+          for (var _iterator = nodeArr[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var v = _step.value;
+            var temp = Object(_functions__WEBPACK_IMPORTED_MODULE_1__["returnComputedStyle"])(v, 'display');
+            if (temp !== 'inline-block' && temp !== 'block') throw new Error("Not supported display value of element : ".concat(temp));
           }
         } catch (err) {
           _didIteratorError = true;
@@ -10616,50 +10610,6 @@ var GyoButton = function GyoButton(sel) {
           }
         }
       }
-    },
-    returnComputedStyle: function returnComputedStyle(node, property) {
-      return window.getComputedStyle(node)[property];
-    },
-    addEvent: function addEvent(node, event, callback) {
-      node.addEventListener(event, callback);
-    },
-    removeEvent: function removeEvent(node, event, callback) {
-      node.removeEventListener(event, callback);
-    }
-  };
-
-  try {
-    if (sel && typeof sel === 'string') {
-      selector = sel;
-      nodeArr = document.querySelectorAll(selector);
-      if (!nodeArr || nodeArr.length === 0) throw new Error("Didn't find any element-node from this arguments : \"".concat(selector, "\""));else {
-        var _iteratorNormalCompletion2 = true;
-        var _didIteratorError2 = false;
-        var _iteratorError2 = undefined;
-
-        try {
-          for (var _iterator2 = nodeArr[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-            var v = _step2.value;
-
-            var temp = _private.returnComputedStyle(v, 'display');
-
-            if (temp !== 'inline-block' && temp !== 'block') throw new Error("Not supported display value of element : ".concat(temp));
-          }
-        } catch (err) {
-          _didIteratorError2 = true;
-          _iteratorError2 = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
-              _iterator2.return();
-            }
-          } finally {
-            if (_didIteratorError2) {
-              throw _iteratorError2;
-            }
-          }
-        }
-      }
     } else throw new Error('Arguments Error');
   } catch (e) {
     console.error(e);
@@ -10668,13 +10618,40 @@ var GyoButton = function GyoButton(sel) {
 
   return {
     getNodeArr: function getNodeArr() {
-      return selector;
-    },
-    getStyle: function getStyle() {
-      return style;
+      return nodeArr;
     },
     button: function button(initStyleProperty) {
       style = initStyleProperty ? initStyleProperty : {};
+      var _iteratorNormalCompletion2 = true;
+      var _didIteratorError2 = false;
+      var _iteratorError2 = undefined;
+
+      try {
+        for (var _iterator2 = nodeArr[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+          var node = _step2.value;
+          Object(_functions__WEBPACK_IMPORTED_MODULE_1__["setStyle"])(node, _constants__WEBPACK_IMPORTED_MODULE_0__["styleObj"].init);
+          Object(_functions__WEBPACK_IMPORTED_MODULE_1__["setStyle"])(node, style);
+        }
+      } catch (err) {
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
+            _iterator2.return();
+          }
+        } finally {
+          if (_didIteratorError2) {
+            throw _iteratorError2;
+          }
+        }
+      }
+    },
+    addEvent: function addEvent(eventName, pCallback) {
+      callback = function callback(e) {
+        pCallback(e);
+      };
+
       var _iteratorNormalCompletion3 = true;
       var _didIteratorError3 = false;
       var _iteratorError3 = undefined;
@@ -10682,10 +10659,7 @@ var GyoButton = function GyoButton(sel) {
       try {
         for (var _iterator3 = nodeArr[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
           var node = _step3.value;
-
-          _private.setStyle(node, _constants__WEBPACK_IMPORTED_MODULE_0__["styleObj"].init);
-
-          _private.setStyle(node, style);
+          node.addEventListener(eventName, callback);
         }
       } catch (err) {
         _didIteratorError3 = true;
@@ -10702,11 +10676,7 @@ var GyoButton = function GyoButton(sel) {
         }
       }
     },
-    addEvent: function addEvent(eventName, pCallback) {
-      callback = function callback(e) {
-        pCallback(e);
-      };
-
+    removeEvent: function removeEvent(eventName, callback) {
       var _iteratorNormalCompletion4 = true;
       var _didIteratorError4 = false;
       var _iteratorError4 = undefined;
@@ -10714,8 +10684,7 @@ var GyoButton = function GyoButton(sel) {
       try {
         for (var _iterator4 = nodeArr[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
           var node = _step4.value;
-
-          _private.addEvent(node, eventName, callback);
+          node.addEventListener(eventName, callback);
         }
       } catch (err) {
         _didIteratorError4 = true;
@@ -10728,32 +10697,6 @@ var GyoButton = function GyoButton(sel) {
         } finally {
           if (_didIteratorError4) {
             throw _iteratorError4;
-          }
-        }
-      }
-    },
-    removeEvent: function removeEvent(eventName, callback) {
-      var _iteratorNormalCompletion5 = true;
-      var _didIteratorError5 = false;
-      var _iteratorError5 = undefined;
-
-      try {
-        for (var _iterator5 = nodeArr[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
-          var node = _step5.value;
-
-          _private.removeEvent(node, eventName, callback);
-        }
-      } catch (err) {
-        _didIteratorError5 = true;
-        _iteratorError5 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion5 && _iterator5.return != null) {
-            _iterator5.return();
-          }
-        } finally {
-          if (_didIteratorError5) {
-            throw _iteratorError5;
           }
         }
       }
@@ -10983,15 +10926,13 @@ var failAnimationElement = function failAnimationElement(size) {
 /*!*****************************!*\
   !*** ./src/js/functions.js ***!
   \*****************************/
-/*! exports provided: setStyle, returnComputedStyle, addEvent, removeEvent */
+/*! exports provided: setStyle, returnComputedStyle */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setStyle", function() { return setStyle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "returnComputedStyle", function() { return returnComputedStyle; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addEvent", function() { return addEvent; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeEvent", function() { return removeEvent; });
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "./src/js/constants.js");
 
 'use strict';
@@ -11039,14 +10980,6 @@ var returnComputedStyle = function returnComputedStyle(node, property) {
   return window.getComputedStyle(node)[property];
 };
 
-var addEvent = function addEvent(node, event, callback) {
-  node.addEventListener(event, callback);
-};
-
-var removeEvent = function removeEvent(node, event, callback) {
-  node.removeEventListener(event, callback);
-};
-
 
 
 /***/ }),
@@ -11071,8 +11004,8 @@ __webpack_require__.r(__webpack_exports__);
 var Gyo;
 window.Gyo = Gyo = Gyo || {};
 Gyo.button = _button__WEBPACK_IMPORTED_MODULE_0__["default"];
-Gyo.toggleButton = _togglebutton__WEBPACK_IMPORTED_MODULE_1__["default"];
-Gyo.progressButton = _progressbutton__WEBPACK_IMPORTED_MODULE_2__["default"];
+Gyo.toggleButton = _togglebutton__WEBPACK_IMPORTED_MODULE_1__["default"]; // Gyo.progressButton = GyoProgressButton;
+
 Gyo.noConflict = _utils__WEBPACK_IMPORTED_MODULE_3__["noConflict"];
 
 /***/ }),
@@ -11331,117 +11264,113 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./button */ "./src/js/button.js");
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants */ "./src/js/constants.js");
 /* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./functions */ "./src/js/functions.js");
-/* harmony import */ var private_parts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! private-parts */ "./node_modules/private-parts/index.js");
-/* harmony import */ var private_parts__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(private_parts__WEBPACK_IMPORTED_MODULE_3__);
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
 
+"use strict";
 
-var GyoToggleButton = function () {
-  "use strict"; //GyoToggleButton
+var GyoToggleButton = function GyoToggleButton(sel) {
+  var _this = _button__WEBPACK_IMPORTED_MODULE_0__["default"].call(this, sel); //GyoToggleButton
   //Private Member
-  //Method
+  //Variables
 
-  var privateMethods = {
+
+  var nodeStateArr, callback; //Methods
+
+  var _private = {
     initToggle: function initToggle(el, cb) {
-      Object(_functions__WEBPACK_IMPORTED_MODULE_2__["addEvent"])(el[0], "mouseup", cb);
+      el[0].addEventListener("mouseup", cb);
     }
   };
+  nodeStateArr = Array.from(_this.getNodeArr()).map(function (el) {
+    return [el, false];
+  });
+  return _objectSpread({}, _this, {
+    toggle: function toggle(pCallback, stateProp, stateOutProp) {
+      var styleStateEffect = stateProp ? stateProp : _constants__WEBPACK_IMPORTED_MODULE_1__["styleObj"].state_effect;
+      var styleStateEffectOut = stateOutProp ? stateOutProp : _constants__WEBPACK_IMPORTED_MODULE_1__["styleObj"].state_effect_out;
 
-  var _ = Object(private_parts__WEBPACK_IMPORTED_MODULE_3__["createKey"])(privateMethods);
+      if (pCallback) {
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
 
-  var GyoToggleButton = function GyoToggleButton(sel) {
-    _button__WEBPACK_IMPORTED_MODULE_0__["default"].call(this, sel);
-    _(this).nodeStateArr = Array.from(this.getNodeArr()).map(function (el) {
-      return [el, false];
-    });
-  };
+        try {
+          for (var _iterator = nodeStateArr[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var el = _step.value;
+            el[0].removeEventListener("mouseup", callback);
+            el[1] = false;
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator.return != null) {
+              _iterator.return();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
+          }
+        }
+      }
 
-  GyoToggleButton.prototype = Object.create(_button__WEBPACK_IMPORTED_MODULE_0__["default"].prototype);
-  GyoToggleButton.prototype.constructor = GyoToggleButton;
+      callback = function callback(e) {
+        var _this2 = this;
 
-  GyoToggleButton.prototype.toggle = function (callback, stateProp, stateOutProp) {
-    var that = this;
-    var styleStateEffect = stateProp ? stateProp : _constants__WEBPACK_IMPORTED_MODULE_1__["styleObj"].state_effect;
-    var styleStateEffectOut = stateOutProp ? stateOutProp : _constants__WEBPACK_IMPORTED_MODULE_1__["styleObj"].state_effect_out;
+        var stateIdx = nodeStateArr.findIndex(function (el) {
+          return el[0] === _this2;
+        });
+        var stateStyle;
+        nodeStateArr[stateIdx][1] = !nodeStateArr[stateIdx][1];
 
-    if (_(this).callback) {
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
+        if (nodeStateArr[stateIdx][1]) {
+          stateStyle = styleStateEffect;
+        } else {
+          stateStyle = styleStateEffectOut;
+        }
+
+        Object(_functions__WEBPACK_IMPORTED_MODULE_2__["setStyle"])(this, stateStyle); //callback function have value of node element and toggle state of this.
+
+        if (pCallback) pCallback(this, nodeStateArr[stateIdx][1]);
+      };
+
+      var _iteratorNormalCompletion2 = true;
+      var _didIteratorError2 = false;
+      var _iteratorError2 = undefined;
 
       try {
-        for (var _iterator = _(this).nodeStateArr[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var el = _step.value;
-          Object(_functions__WEBPACK_IMPORTED_MODULE_2__["removeEvent"])(el[0], "mouseup", _(this).callback);
-          el[1] = false;
+        for (var _iterator2 = nodeStateArr[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+          var _el = _step2.value;
+
+          _private.initToggle(_el, callback);
         }
       } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
       } finally {
         try {
-          if (!_iteratorNormalCompletion && _iterator.return != null) {
-            _iterator.return();
+          if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
+            _iterator2.return();
           }
         } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
+          if (_didIteratorError2) {
+            throw _iteratorError2;
           }
         }
       }
     }
+  });
+};
 
-    _(this).callback = function (e) {
-      var _this = this;
-
-      var stateIdx = _(that).nodeStateArr.findIndex(function (el) {
-        return el[0] === _this;
-      });
-
-      var stateStyle;
-      _(that).nodeStateArr[stateIdx][1] = !_(that).nodeStateArr[stateIdx][1];
-
-      if (_(that).nodeStateArr[stateIdx][1]) {
-        stateStyle = styleStateEffect;
-      } else {
-        stateStyle = styleStateEffectOut;
-      }
-
-      Object(_functions__WEBPACK_IMPORTED_MODULE_2__["setStyle"])(this, stateStyle); //callback function have value of node element and toggle state of this.
-
-      if (callback) callback(this, _(that).nodeStateArr[stateIdx][1]);
-    };
-
-    var _iteratorNormalCompletion2 = true;
-    var _didIteratorError2 = false;
-    var _iteratorError2 = undefined;
-
-    try {
-      for (var _iterator2 = _(this).nodeStateArr[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-        var _el = _step2.value;
-
-        _(this).initToggle(_el, _(this).callback);
-      }
-    } catch (err) {
-      _didIteratorError2 = true;
-      _iteratorError2 = err;
-    } finally {
-      try {
-        if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
-          _iterator2.return();
-        }
-      } finally {
-        if (_didIteratorError2) {
-          throw _iteratorError2;
-        }
-      }
-    }
-  };
-
-  return GyoToggleButton;
-}();
+GyoToggleButton.prototype = Object.create(_button__WEBPACK_IMPORTED_MODULE_0__["default"].prototype);
+GyoToggleButton.prototype.constructor = GyoToggleButton; // return GyoToggleButton;
 
 /* harmony default export */ __webpack_exports__["default"] = (GyoToggleButton);
 
